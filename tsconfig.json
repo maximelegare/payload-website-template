@@ -54,8 +54,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "redirects.js",
-    "next.config.js"
-  ],
+    "next.config.mjs"
+, "locales/locales.js"  ],
   "exclude": [
     "node_modules"
   ],

@@ -7,11 +7,11 @@ import { draftMode, headers } from 'next/headers'
 import React from 'react'
 import { homeStatic } from 'src/payload/seed/home-static'
 
-import type { Page as PageType } from '../../../payload-types'
+import type { Page as PageType } from '../../../../payload-types'
 
-import { Blocks } from '../../components/Blocks'
-import { Hero } from '../../components/Hero'
-import { generateMeta } from '../../utilities/generateMeta'
+import { Blocks } from '../../../components/Blocks'
+import { Hero } from '../../../components/Hero'
+import { generateMeta } from '../../../utilities/generateMeta'
 
 export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })

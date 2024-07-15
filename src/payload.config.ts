@@ -32,7 +32,10 @@ import { seed } from './payload/endpoints/seed'
 import { Footer } from './payload/globals/Footer/Footer'
 import { Header } from './payload/globals/Header/Header'
 import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
-import { defaultLocale, locales } from '@@/locales/locales'
+import { defaultLocale, locales } from 'ROOT/locales/locales'
+
+import { en } from 'payload/i18n/en'
+import { fr } from 'payload/i18n/fr'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -56,6 +59,14 @@ export default buildConfig({
       beforeDashboard: [BeforeDashboard],
     },
     user: Users.slug,
+  },
+  i18n: {
+    supportedLanguages: { en, fr },
+  },
+  localization: {
+    locales: locales.map((l) => l.locale),
+    defaultLocale: defaultLocale,
+    fallback: true,
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
@@ -92,11 +103,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  localization: {
-    locales: locales.map((l) => l.locale),
-    defaultLocale: defaultLocale,
-    fallback: true,
-  },
+
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),

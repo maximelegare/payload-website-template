@@ -1,9 +1,12 @@
-import { defaultLocale, locales } from './src/locales/locales'
 import { Config } from 'next-i18n-router/dist/types'
+import { defaultLocale, locales } from './locales/locales'
 
-export const i18nConfig: Config = {
+
+const i18nConfig: Config = {
   defaultLocale,
   locales: locales.map((l) => l.locale),
 }
 
-export type Locale = (typeof i18nConfig)['locales'][number]
+
+export { locales, defaultLocale }
+export default i18nConfig
