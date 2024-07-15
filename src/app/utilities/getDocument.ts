@@ -1,6 +1,6 @@
 import type { Config } from 'src/payload-types'
 
-import configPromise from '@payload-config'
+import configPromise from '~payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { unstable_cache } from 'next/cache'
 

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-import { PayloadRedirects } from '@/components/PayloadRedirects'
-import configPromise from '@payload-config'
+import { PayloadRedirects } from '~app/components/PayloadRedirects'
+import configPromise from '~payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode, headers } from 'next/headers'
 import React from 'react'

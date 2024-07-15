@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { cn } from '@/utilities/cn'
+import { cn } from '~app/utilities/cn'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'

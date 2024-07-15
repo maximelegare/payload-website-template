@@ -1,9 +1,9 @@
 import type { Metadata } from 'next/types'
 
-import { CollectionArchive } from '@/components/CollectionArchive'
-import { PageRange } from '@/components/PageRange'
-import { Pagination } from '@/components/Pagination'
-import configPromise from '@payload-config'
+import { CollectionArchive } from '~app/components/CollectionArchive'
+import { PageRange } from '~app/components/PageRange'
+import { Pagination } from '~app/components/Pagination'
+import configPromise from '~payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
 

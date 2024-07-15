@@ -1,6 +1,6 @@
 import type { Post } from 'src/payload-types'
 
-import configPromise from '@payload-config'
+import configPromise from '~payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import React from 'react'
 import RichText from 'src/app/components/RichText'

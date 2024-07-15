@@ -3,7 +3,11 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -22,16 +26,39 @@
       }
     ],
     "paths": {
-      "ROOT/*": ["./*"],
-      "@/*": ["./src/*"],
-      "@payload/*": ["./src/app/(payload)/*"],
-      "@app/*": ["./src/app/(app)/*"],
-      "@payload-config": ["./payload.config.ts"],
-      "@payload-types": ["./payload-types.ts"]
+      "~payload-config": [
+        "./src/payload.config.ts"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "~app/*": [
+        "./src/app/*"
+      ],
+      "~payload-types": [
+        "./src/payload-types.ts"
+      ],
+      "~payload/*": [
+        "./src/payload/*"
+      ],
+      "~/*": [
+        "./src/*"
+      ],
+      "ROOT/*": [
+        "./*"
+      ],
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "redirects.js", "next.config.js"],
-  "exclude": ["node_modules"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "redirects.js",
+    "next.config.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "ts-node": {
     "transpileOnly": true,
     "swc": true
