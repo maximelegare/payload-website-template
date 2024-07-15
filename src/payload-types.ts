@@ -26,7 +26,7 @@ export interface Config {
     header: Header;
     footer: Footer;
   };
-  locale: null;
+  locale: 'fr' | 'en';
   user: User & {
     collection: 'users';
   };
@@ -334,6 +334,7 @@ export interface Post {
 export interface User {
   id: string;
   name?: string | null;
+  roles?: ('admin' | 'user')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;

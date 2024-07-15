@@ -26,22 +26,22 @@
       }
     ],
     "paths": {
-      "~payload-config": [
+      "@payload-config": [
         "./src/payload.config.ts"
       ],
       "react": [
         "./node_modules/@types/react"
       ],
-      "~app/*": [
+      "@app/*": [
         "./src/app/*"
       ],
-      "~payload-types": [
+      "@payload-types": [
         "./src/payload-types.ts"
       ],
-      "~payload/*": [
+      "@payload/*": [
         "./src/payload/*"
       ],
-      "~/*": [
+      "@@/*": [
         "./src/*"
       ],
       "ROOT/*": [

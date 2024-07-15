@@ -32,7 +32,7 @@ import { seed } from './payload/endpoints/seed'
 import { Footer } from './payload/globals/Footer/Footer'
 import { Header } from './payload/globals/Header/Header'
 import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
-import { defaultLocale, locales } from '~/locales/locales'
+import { defaultLocale, locales } from '@@/locales/locales'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

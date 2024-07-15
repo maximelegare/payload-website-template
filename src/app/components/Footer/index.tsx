@@ -1,4 +1,4 @@
-import { getCachedGlobal } from '~app/utilities/getGlobals'
+import { getCachedGlobal } from '@app/utilities/getGlobals'
 import Link from 'next/link'
 import React from 'react'
 

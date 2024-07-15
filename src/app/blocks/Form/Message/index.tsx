@@ -1,6 +1,6 @@
 import type { MessageField } from '@payloadcms/plugin-form-builder/types'
 
-import RichText from '~app/components/RichText'
+import RichText from '@app/components/RichText'
 import React from 'react'
 
 import { Width } from '../Width'

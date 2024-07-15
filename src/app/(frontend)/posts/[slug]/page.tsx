@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
-import { RelatedPosts } from '~app/blocks/RelatedPosts'
-import { PayloadRedirects } from '~app/components/PayloadRedirects'
-import configPromise from '~payload-config'
+import { RelatedPosts } from '@app/blocks/RelatedPosts'
+import { PayloadRedirects } from '@app/components/PayloadRedirects'
+import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode, headers } from 'next/headers'
 import { notFound } from 'next/navigation'
