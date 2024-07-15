@@ -12,7 +12,7 @@ import { LivePreviewListener } from '../../components/LivePreviewListener'
 import { Providers } from '../../providers'
 import { InitTheme } from '../../providers/Theme/InitTheme'
 import { mergeOpenGraph } from '../../utilities/mergeOpenGraph'
-import './globals.css'
+import './css/globals.css'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -37,7 +37,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'https://payloadcms.com'),
+  metadataBase: new URL(env.NEXT_PUBLIC_SERVER_URL || 'https://payloadcms.com'),
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
