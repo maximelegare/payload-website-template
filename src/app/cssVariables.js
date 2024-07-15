@@ -2,9 +2,12 @@
 
 const cssVariables = {
   breakpoints: {
-    l: 1440,
-    m: 1024,
-    s: 768,
+    xs:480,
+    s: 600,
+    m: 850,
+    l: 1120,
+    xl:1680,
+    xxl: 1920,
   },
   colors: {
     base0: 'rgb(255, 255, 255)',
