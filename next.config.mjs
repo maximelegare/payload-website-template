@@ -4,6 +4,8 @@ import ContentSecurityPolicy from './csp.js'
 
 const NEXT_PUBLIC_SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
+await import('./src/env.mjs')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
