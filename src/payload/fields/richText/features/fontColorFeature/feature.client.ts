@@ -25,7 +25,7 @@ export const FontColorFeatureClient = createClientFeature({
       toolbarAddDropdownGroupWithItems([
         {
           key: 'fontColor',
-          ChildComponent:  FontColorIcon,
+          ChildComponent: FontColorIcon,
           label: 'Color Text',
           onSelect: ({ editor }) => {
             editor.dispatchCommand(OPEN_FONT_COLOR_DRAWER_COMMAND, {})
@@ -36,9 +36,8 @@ export const FontColorFeatureClient = createClientFeature({
         {
           key: 'fontColor',
           label: 'Color Text',
-          ChildComponent: FontColorIcon,
+          ChildComponent: () => FontColorIcon({ color: 'red' }),
           onSelect: ({ editor }) => {
-            console.log('feature')
             editor.dispatchCommand(OPEN_FONT_COLOR_DRAWER_COMMAND, {})
           },
         },
