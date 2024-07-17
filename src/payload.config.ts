@@ -7,10 +7,8 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import {
-  BoldFeature,
   FixedToolbarFeature,
   HeadingFeature,
-  ItalicFeature,
   LinkFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
@@ -36,6 +34,8 @@ import { defaultLocale, locales } from 'ROOT/locales/locales'
 
 import { en } from 'payload/i18n/en'
 import { fr } from 'payload/i18n/fr'
+import { EmbedFeature } from '@payload/fields/richText/features/embedFeature/feature.server'
+import { FontColorFeature } from '@payload/fields/richText/features/fontColorFeature/feature.server'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -70,11 +70,11 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
-    features: () => {
+    features: ({defaultFeatures}) => {
       return [
-        UnderlineFeature(),
-        BoldFeature(),
-        ItalicFeature(),
+        ...defaultFeatures,
+        FontColorFeature(),
+        // EmbedFeature(),
         LinkFeature({
           enabledCollections: ['pages', 'posts'],
           fields: ({ defaultFields }) => {
