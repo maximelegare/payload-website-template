@@ -46,6 +46,7 @@ export const hero: Field = {
     {
       name: 'richText',
       type: 'richText',
+      localized:true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
           return [

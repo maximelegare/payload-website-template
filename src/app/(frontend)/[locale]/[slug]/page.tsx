@@ -12,8 +12,9 @@ import type { Page as PageType } from '../../../../payload-types'
 import { Blocks } from '../../../components/Blocks'
 import { Hero } from '../../../components/Hero'
 import { generateMeta } from '../../../utilities/generateMeta'
+import { Locale } from 'ROOT/locales/locales'
 
-export async function generateStaticParams() {
+export async function generateStaticParams( ) {
   const payload = await getPayloadHMR({ config: configPromise })
   const pages = await payload.find({
     collection: 'pages',
@@ -29,13 +30,14 @@ export async function generateStaticParams() {
     .map(({ slug }) => slug)
 }
 
-export default async function Page({ params: { slug = 'home' } }) {
+export default async function Page({ params: { slug = 'home', locale = 'en' } }) {
   const url = '/' + slug
 
   let page: PageType | null
 
   page = await queryPageBySlug({
     slug,
+    locale: locale as Locale
   })
 
   // Remove this code once your website is seeded
@@ -60,15 +62,16 @@ export default async function Page({ params: { slug = 'home' } }) {
   )
 }
 
-export async function generateMetadata({ params: { slug = 'home' } }): Promise<Metadata> {
+export async function generateMetadata({ params: { slug = 'home', locale } }): Promise<Metadata> {
   const page = await queryPageBySlug({
     slug,
+    locale
   })
 
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = async ({ slug }: { slug: string }) => {
+const queryPageBySlug = async ({ slug, locale }: { slug: string, locale:Locale }) => {
   const { isEnabled: draft } = draftMode()
 
   const payload = await getPayloadHMR({ config: configPromise })
@@ -77,6 +80,7 @@ const queryPageBySlug = async ({ slug }: { slug: string }) => {
   const user = authResult?.user
 
   const result = await payload.find({
+    locale,
     collection: 'pages',
     draft,
     limit: 1,

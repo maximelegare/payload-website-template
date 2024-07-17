@@ -9,6 +9,7 @@ import {
 
 export const Archive: Block = {
   slug: 'archive',
+  
   fields: [
     {
       name: 'introContent',

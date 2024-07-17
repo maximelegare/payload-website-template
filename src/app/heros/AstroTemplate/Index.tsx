@@ -1,90 +1,117 @@
 import React from 'react'
 
-import {Page} from "@payload-types"
+import { Page } from '@payload-types'
+import { CMSLink } from '@app/components/Link'
+import RichText from '@app/components/RichText'
 
-
-export const AstroTemplateHero:React.FC<Page['hero']> = () => {
+export const AstroTemplateHero: React.FC<Page['hero']> = ({ links, richText }) => {
   return (
-    <div id="blog">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-        <div className="mb-12 space-y-2 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">
-            Latest Articles
-          </h2>
-          <p className="lg:mx-auto lg:w-6/12 text-gray-600 dark:text-gray-300">
-            Quam hic dolore cumque voluptate rerum beatae et quae, tempore sunt, debitis dolorum
-            officia aliquid explicabo? Excepturi, voluptate?
-          </p>
+    <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+      <div className="relative" id="home">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-[53%] dark:opacity-70"
+        >
+          <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700"></div>
+          <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600"></div>
         </div>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <div className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
-            <div className="relative overflow-hidden rounded-xl">
-              <img
-                src="https://images.unsplash.com/photo-1661749711934-492cd19a25c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80"
-                alt="art cover"
-                loading="lazy"
-                width="1000"
-                height="667"
-                className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="mt-6 relative">
-              <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                De fuga fugiat lorem ispum laboriosam expedita.
-              </h3>
-              <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                Voluptates harum aliquam totam, doloribus eum impedit atque! Temporibus...
-              </p>
-              <a className="inline-block" href="#">
-                <span className="text-info dark:text-blue-300">Read more</span>
-              </a>
-            </div>
-          </div>
-          <div className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
-            <div className="relative overflow-hidden rounded-xl">
-              <img
-                src="https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80"
-                alt="art cover"
-                loading="lazy"
-                width="1000"
-                height="667"
-                className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
-              />
-            </div>
-            <div className="mt-6 relative">
-              <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                De fuga fugiat lorem ispum laboriosam expedita.
-              </h3>
-              <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                Voluptates harum aliquam totam, doloribus eum impedit atque! Temporibus...
-              </p>
-              <a className="inline-block" href="#">
-                <span className="text-info dark:text-blue-300">Read more</span>
-              </a>
+        <div className="relative  ml-auto">
+          <div className="lg:w-2/3 text-center mx-auto">
+            <RichText className="mb-6" content={richText} enableGutter={false} />
+            {Array.isArray(links) && links.length > 0 && (
+              <ul className="flex gap-4 justify-center">
+                {links.map(({ link }, i) => {
+                  return (
+                    <li key={i}>
+                      <CMSLink {...link} />
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+{/*            
+            <div className="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between">
+              <div className="text-left">
+                <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
+                  The lowest price
+                </h6>
+                <p className="mt-2 text-gray-500">Some text here</p>
+              </div>
+              <div className="text-left">
+                <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
+                  The fastest on the market
+                </h6>
+                <p className="mt-2 text-gray-500">Some text here</p>
+              </div>
+              <div className="text-left">
+                <h6 className="text-lg font-semibold text-gray-700 dark:text-white">
+                  The most loved
+                </h6>
+                <p className="mt-2 text-gray-500">Some text here</p>
+              </div>
             </div>
           </div>
-          <div className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
-            <div className="relative overflow-hidden rounded-xl">
+          <div className="mt-12 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6">
+            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
               <img
-                src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
-                alt="art cover"
+                src="./images/clients/microsoft.svg"
+                className="h-12 w-auto mx-auto"
                 loading="lazy"
-                width="1000"
-                height="667"
-                className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105"
+                alt="client logo"
+                width=""
+                height=""
               />
             </div>
-            <div className="mt-6 relative">
-              <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                De fuga fugiat lorem ispum laboriosam expedita.
-              </h3>
-              <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                Voluptates harum aliquam totam, doloribus eum impedit atque! Temporibus...
-              </p>
-              <a className="inline-block" href="#">
-                <span className="text-info dark:text-blue-300">Read more</span>
-              </a>
+            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
+              <img
+                src="./images/clients/airbnb.svg"
+                className="h-12 w-auto mx-auto"
+                loading="lazy"
+                alt="client logo"
+                width=""
+                height=""
+              />
             </div>
+            <div className="p-4 flex grayscale transition duration-200 hover:grayscale-0">
+              <img
+                src="./images/clients/google.svg"
+                className="h-9 w-auto m-auto"
+                loading="lazy"
+                alt="client logo"
+                width=""
+                height=""
+              />
+            </div>
+            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
+              <img
+                src="./images/clients/ge.svg"
+                className="h-12 w-auto mx-auto"
+                loading="lazy"
+                alt="client logo"
+                width=""
+                height=""
+              />
+            </div>
+            <div className="p-4 flex grayscale transition duration-200 hover:grayscale-0">
+              <img
+                src="./images/clients/netflix.svg"
+                className="h-8 w-auto m-auto"
+                loading="lazy"
+                alt="client logo"
+                width=""
+                height=""
+              />
+            </div>
+            <div className="p-4 grayscale transition duration-200 hover:grayscale-0">
+              <img
+                src="./images/clients/google-cloud.svg"
+                className="h-12 w-auto mx-auto"
+                loading="lazy"
+                alt="client logo"
+                width=""
+                height=""
+              />
+            </div> */}
           </div>
         </div>
       </div>
