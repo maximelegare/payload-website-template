@@ -13,6 +13,7 @@ import { Providers } from '../../providers'
 import { InitTheme } from '../../providers/Theme/InitTheme'
 import { mergeOpenGraph } from '../../utilities/mergeOpenGraph'
 import './css/globals.css'
+import { ScrollArea } from '@app/components/ui/scroll-area'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,12 +25,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar />
-          <LivePreviewListener />
-
-          <Header />
-          {children}
-          <Footer />
+          <ScrollArea className="h-screen w-screen">
+            <AdminBar />
+            <LivePreviewListener />
+            <Header />
+            {children}
+            <Footer />
+          </ScrollArea>
         </Providers>
       </body>
     </html>
