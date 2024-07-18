@@ -123,6 +123,6 @@ export function $createFontColorNode(data: FontColorNodeData): FontColorNode {
   )
 }
 
-export function $isEmbedNode(node: LexicalNode | null | undefined): node is FontColorNode {
+export function $isFontColorNode(node: LexicalNode | null | undefined): node is FontColorNode {
   return node instanceof FontColorNode
 }

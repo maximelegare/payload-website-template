@@ -18,8 +18,9 @@ import {
   INSERT_EMBED_COMMAND,
   OPEN_EMBED_DRAWER_COMMAND,
 } from '../nodes/EmbedNode'
-import { FieldsDrawer } from '@payloadcms/richtext-lexical/client'
+import { FieldsDrawer, ToolbarDropdown } from '@payloadcms/richtext-lexical/client'
 import { useModal } from '@payloadcms/ui'
+import { CHANGE_FONT_COLOR_COMMAND } from '../../fontColorFeature/nodes/FontColorNode'
 
 const drawerSlug = 'lexical-embed-create'
 
@@ -105,14 +106,14 @@ export const EmbedPlugin: PluginComponent = () => {
       data={embedData}
       drawerSlug={drawerSlug}
       drawerTitle={'Create Embed'}
-      featureKey="embed"
+      featureKey="fontColor"
       handleDrawerSubmit={(_fields, data) => {
         closeModal(drawerSlug)
         if (!data.url) {
           return
         }
 
-        editor.dispatchCommand(INSERT_EMBED_COMMAND, {
+        editor.dispatchCommand(CHANGE_FONT_COLOR_COMMAND, {
           url: data.url as string,
         })
       }}

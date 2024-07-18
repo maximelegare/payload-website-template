@@ -9,7 +9,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
   RangeSelection,
 } from 'lexical'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { PluginComponent } from '@payloadcms/richtext-lexical'
 import {
   $createFontColorNode,
@@ -18,17 +18,31 @@ import {
   CHANGE_FONT_COLOR_COMMAND,
   OPEN_FONT_COLOR_DRAWER_COMMAND,
 } from '../nodes/FontColorNode'
-import { FieldsDrawer } from '@payloadcms/richtext-lexical/client'
-import { useModal } from '@payloadcms/ui'
+import { FieldsDrawer, ToolbarDropdown } from '@payloadcms/richtext-lexical/client'
+import { Modal, useModal } from '@payloadcms/ui'
+import { ColorPicker } from '../components/ColorPickerComponent'
+import { FontColorIcon } from '../icons/FontColorIcon'
+import { boundModalToHTMLElement } from '@payload/hooks/boundTwoHTMLElements'
+import { CustomToolbarDropdown } from '@payload/components/CustomToolbarDropdown'
 
 const drawerSlug = 'lexical-embed-create'
+export const modalSlug = 'lexical-font-color-modal'
 
 export const FontColorPlugin: PluginComponent = () => {
   const [editor] = useLexicalComposerContext()
+  const [showModal, setShowModal] = useState(false)
+  const { modalState } = useModal()
+
   const { closeModal, toggleModal } = useModal()
   const [lastSelection, setLastSelection] = useState<RangeSelection | null>()
   const [embedData, setEmbedData] = useState<FontColorNodeData | {}>({})
   const [targetNodeKey, setTargetNodeKey] = useState<string | null>(null)
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    console.log('modalState', modalState[modalSlug])
+    boundModalToHTMLElement('lexical-font-color-icon', 'colorpicker-modal', true)
+  }, [modalState])
 
   useEffect(() => {
     return mergeRegister(
@@ -100,23 +114,45 @@ export const FontColorPlugin: PluginComponent = () => {
     )
   }, [editor, lastSelection, targetNodeKey, toggleModal])
 
-  return (
-    <FieldsDrawer
-      data={embedData}
-      drawerSlug={drawerSlug}
-      drawerTitle={'Create Embed'}
-      featureKey="fontColor"
-      handleDrawerSubmit={(_fields, data) => {
-        closeModal(drawerSlug)
-        if (!data.url) {
-          return
-        }
+  const triggerElement = document.getElementById('lexical-font-color-icon')
 
-        editor.dispatchCommand(CHANGE_FONT_COLOR_COMMAND, {
-          url: data.url as string,
-        })
-      }}
-      schemaPathSuffix="fields"
-    />
+  return (
+    // <CustomToolbarDropdown
+    //   triggerElement={triggerElement}
+    //   id="colorpicker-modal"
+    //   slug="colorpicker-modal"
+    // >
+    //   <ColorPicker />
+    // </CustomToolbarDropdown>
+    <Modal
+      id="colorpicker-modal"
+      lockBodyScroll={false}
+      // ref={modalRef}
+      slug="colorpicker-modal"
+      htmlElement={'div'}
+      style={{ minHeight: '0px' }}
+    >
+      <ColorPicker />
+    </Modal>
   )
+}
+
+{
+  /* <FieldsDrawer
+data={embedData}
+drawerSlug={drawerSlug}
+drawerTitle={'Create Embed'}
+featureKey="fontColor"
+handleDrawerSubmit={(_fields, data) => {
+  closeModal(drawerSlug)
+  if (!data.url) {
+    return
+  }
+
+  editor.dispatchCommand(CHANGE_FONT_COLOR_COMMAND, {
+    url: data.url as string,
+  })
+}}
+schemaPathSuffix="fields"
+/> */
 }

@@ -1,15 +1,31 @@
+'use client'
+
 import React from 'react'
 import type { SVGProps } from 'react'
 
+import { useModal } from '@payloadcms/ui'
+import { modalSlug } from '../plugins'
 
+export function FontColorIcon(props?: SVGProps<SVGSVGElement>) {
+  const { toggleModal } = useModal()
 
-export function FontColorIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <div>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      id="lexical-font-color-icon"
+      onClick={() => {
+        toggleModal("colorpicker-modal")}}
+    >
       <svg
         viewBox="0 0 18.427431 19.958412"
         version="1.1"
-        id="svg1"
+        
         xmlns="http://www.w3.org/2000/svg"
         width="20px"
         height="13px"
