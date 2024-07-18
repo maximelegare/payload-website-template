@@ -33,15 +33,39 @@ export const FontColorPlugin: PluginComponent = () => {
   const [showModal, setShowModal] = useState(false)
   const { modalState } = useModal()
 
-  const { closeModal, toggleModal } = useModal()
+  const { toggleModal } = useModal()
   const [lastSelection, setLastSelection] = useState<RangeSelection | null>()
   const [embedData, setEmbedData] = useState<FontColorNodeData | {}>({})
   const [targetNodeKey, setTargetNodeKey] = useState<string | null>(null)
-  const modalRef = useRef<HTMLDivElement>(null)
+  const [modalPositions, setModalPositions] = useState({ x: 0, y: 0 })
+
+  const handleScroll = () => {
+    const triggerElement = document.getElementById('lexical-font-color-icon')
+    if (triggerElement) {
+      const rect = triggerElement.getBoundingClientRect()
+      setModalPositions({ x: rect.right, y: rect.top })
+    }
+  }
 
   useEffect(() => {
-    console.log('modalState', modalState[modalSlug])
-    boundModalToHTMLElement('lexical-font-color-icon', 'colorpicker-modal', true)
+    if (modalState['colorpicker-modal']?.isOpen) {
+      window.addEventListener('scroll', handleScroll)
+      handleScroll() // Initial position set
+    }
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [modalState['colorpicker-modal']?.isOpen])
+
+  useEffect(() => {
+    const triggerElement = document.getElementById('lexical-font-color-icon')
+    const rect = triggerElement.getBoundingClientRect()
+
+    setModalPositions({ x: rect.right, y: rect.top })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [modalState])
 
   useEffect(() => {
@@ -114,8 +138,6 @@ export const FontColorPlugin: PluginComponent = () => {
     )
   }, [editor, lastSelection, targetNodeKey, toggleModal])
 
-  const triggerElement = document.getElementById('lexical-font-color-icon')
-
   return (
     // <CustomToolbarDropdown
     //   triggerElement={triggerElement}
@@ -130,7 +152,11 @@ export const FontColorPlugin: PluginComponent = () => {
       // ref={modalRef}
       slug="colorpicker-modal"
       htmlElement={'div'}
-      style={{ minHeight: '0px' }}
+      style={{
+        minHeight: '0px',
+        top: `${modalPositions.y + 35}px`,
+        right: `${modalPositions.x}px`,
+      }}
     >
       <ColorPicker />
     </Modal>
