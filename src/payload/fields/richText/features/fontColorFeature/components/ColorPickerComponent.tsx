@@ -1,9 +1,22 @@
 'use client'
 
 import { useState } from 'react'
-import { RgbColor, RgbColorPicker } from 'react-colorful'
+import { HexColorPicker } from 'react-colorful'
 
-export const ColorPicker = () => {
-  const [color, setColor] = useState<RgbColor>({ b: 0, g: 0, r: 0 })
-  return <RgbColorPicker id="colorpicker" color={color} onChange={setColor} />
+interface Props {
+  onFontColorChange: (color: string) => void
+  fontColor: string
+}
+
+export const ColorPicker = ({ fontColor, onFontColorChange }: Props) => {
+  return (
+    <HexColorPicker
+      id="colorpicker"
+      color={fontColor}
+      onChange={(color) => {
+        console.log(color)
+        onFontColorChange(color)
+      }}
+    />
+  )
 }

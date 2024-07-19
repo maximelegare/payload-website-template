@@ -9,7 +9,10 @@ import {
   COMMAND_PRIORITY_EDITOR,
   RangeSelection,
 } from 'lexical'
-import { useEffect, useRef, useState } from 'react'
+
+import { $patchStyleText } from '@lexical/selection'
+
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { PluginComponent } from '@payloadcms/richtext-lexical'
 import {
   $createFontColorNode,
@@ -30,14 +33,23 @@ export const modalSlug = 'lexical-font-color-modal'
 
 export const FontColorPlugin: PluginComponent = () => {
   const [editor] = useLexicalComposerContext()
-  const [showModal, setShowModal] = useState(false)
   const { modalState } = useModal()
 
   const { toggleModal } = useModal()
   const [lastSelection, setLastSelection] = useState<RangeSelection | null>()
-  const [embedData, setEmbedData] = useState<FontColorNodeData | {}>({})
   const [targetNodeKey, setTargetNodeKey] = useState<string | null>(null)
   const [modalPositions, setModalPositions] = useState({ x: 0, y: 0 })
+  const [fontColor, setFontColor] = useState('#000')
+
+  const applyStyleText = (styles: Record<string, string>) => {
+    console.log('color should change')
+    editor.update(() => {
+      const selection = $getSelection()
+      if ($isRangeSelection(selection)) {
+        $patchStyleText(selection, styles)
+      }
+    })
+  }
 
   const handleScroll = () => {
     const triggerElement = document.getElementById('lexical-font-color-icon')
@@ -72,14 +84,14 @@ export const FontColorPlugin: PluginComponent = () => {
     return mergeRegister(
       editor.registerCommand(
         CHANGE_FONT_COLOR_COMMAND,
-        ({ url }) => {
+        ({ color }) => {
           if (targetNodeKey) {
             // Replace existing embed node
             const node: FontColorNode = $getNodeByKey(targetNodeKey) as FontColorNode
             if (!node) {
               return false
             }
-            node.setData({ url })
+            node.setData({ color })
 
             setTargetNodeKey(null)
             return true
@@ -98,7 +110,7 @@ export const FontColorPlugin: PluginComponent = () => {
 
           if (focusNode !== null) {
             const horizontalRuleNode = $createFontColorNode({
-              url,
+              color,
             })
             $insertNodeToNearestRoot(horizontalRuleNode)
           }
@@ -107,45 +119,14 @@ export const FontColorPlugin: PluginComponent = () => {
         },
         COMMAND_PRIORITY_EDITOR,
       ),
-      editor.registerCommand(
-        OPEN_FONT_COLOR_DRAWER_COMMAND,
-        (embedData) => {
-          setEmbedData(embedData?.data ?? {})
-          setTargetNodeKey(embedData?.nodeKey ?? null)
-
-          if (embedData?.nodeKey) {
-            toggleModal(drawerSlug)
-            return true
-          }
-
-          let rangeSelection: RangeSelection | null = null
-
-          editor.getEditorState().read(() => {
-            const selection = $getSelection()
-            if ($isRangeSelection(selection)) {
-              rangeSelection = selection
-            }
-          })
-
-          if (rangeSelection) {
-            setLastSelection(rangeSelection)
-            toggleModal(drawerSlug)
-          }
-          return true
-        },
-        COMMAND_PRIORITY_EDITOR,
-      ),
     )
   }, [editor, lastSelection, targetNodeKey, toggleModal])
 
+  const onFontColorSelect = (value: string) => {
+    applyStyleText({ color: value })
+  }
+
   return (
-    // <CustomToolbarDropdown
-    //   triggerElement={triggerElement}
-    //   id="colorpicker-modal"
-    //   slug="colorpicker-modal"
-    // >
-    //   <ColorPicker />
-    // </CustomToolbarDropdown>
     <Modal
       id="colorpicker-modal"
       lockBodyScroll={false}
@@ -154,31 +135,15 @@ export const FontColorPlugin: PluginComponent = () => {
       htmlElement={'div'}
       style={{
         minHeight: '0px',
+        // top:"20px",
+        // right:"20px"
+
         top: `${modalPositions.y + 35}px`,
         right: `${modalPositions.x}px`,
+
       }}
     >
-      <ColorPicker />
+      <ColorPicker onFontColorChange={onFontColorSelect} fontColor={fontColor} />
     </Modal>
   )
-}
-
-{
-  /* <FieldsDrawer
-data={embedData}
-drawerSlug={drawerSlug}
-drawerTitle={'Create Embed'}
-featureKey="fontColor"
-handleDrawerSubmit={(_fields, data) => {
-  closeModal(drawerSlug)
-  if (!data.url) {
-    return
-  }
-
-  editor.dispatchCommand(CHANGE_FONT_COLOR_COMMAND, {
-    url: data.url as string,
-  })
-}}
-schemaPathSuffix="fields"
-/> */
 }

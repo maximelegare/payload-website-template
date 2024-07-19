@@ -20,7 +20,6 @@ import {
 } from '../nodes/EmbedNode'
 import { FieldsDrawer, ToolbarDropdown } from '@payloadcms/richtext-lexical/client'
 import { useModal } from '@payloadcms/ui'
-import { CHANGE_FONT_COLOR_COMMAND } from '../../fontColorFeature/nodes/FontColorNode'
 
 const drawerSlug = 'lexical-embed-create'
 
@@ -113,7 +112,7 @@ export const EmbedPlugin: PluginComponent = () => {
           return
         }
 
-        editor.dispatchCommand(CHANGE_FONT_COLOR_COMMAND, {
+        editor.dispatchCommand(INSERT_EMBED_COMMAND, {
           url: data.url as string,
         })
       }}

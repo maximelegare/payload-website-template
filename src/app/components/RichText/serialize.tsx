@@ -17,6 +17,9 @@ import {
   IS_UNDERLINE,
 } from './nodeFormat'
 import type { Page } from '../../../payload-types'
+import { parseCSSStylesString } from '@app/utilities/parseCSSStylesString'
+
+// type WithStyle<T> = T & { style?: React.CSSProperties }
 
 export type NodeTypes =
   | DefaultNodeTypes
@@ -71,7 +74,7 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
             text = <sup key={index}>{text}</sup>
           }
 
-          return text
+          return <span style={{ ...parseCSSStylesString(node.style) }}>{text}</span>
         }
 
         // NOTE: Hacky fix for
@@ -141,7 +144,10 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
             case 'heading': {
               const Tag = node?.tag
               return (
-                <Tag className="col-start-2" key={index}>
+                <Tag
+                  className="col-start-2"
+                  key={index}
+                >
                   {serializedChildren}
                 </Tag>
               )

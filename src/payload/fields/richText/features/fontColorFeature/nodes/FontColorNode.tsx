@@ -14,14 +14,9 @@ import {
   SerializedDecoratorBlockNode,
 } from '@lexical/react/LexicalDecoratorBlockNode'
 
-const FontColorComponent = React.lazy(() =>
-  import('../components/FontColorComponent').then((module) => ({
-    default: module.EmbedNodeComponent,
-  })),
-)
 
 export type FontColorNodeData = {
-  url: string
+  color: string
 }
 
 export type SerializedFontColorNode = Spread<
@@ -33,8 +28,9 @@ export type SerializedFontColorNode = Spread<
   SerializedDecoratorBlockNode
 >
 
-export const CHANGE_FONT_COLOR_COMMAND: LexicalCommand<FontColorNodeData> =
-  createCommand('CHANGE_FONT_COLOR_COMMAND')
+export const CHANGE_FONT_COLOR_COMMAND: LexicalCommand<FontColorNodeData> = createCommand(
+  'CHANGE_FONT_COLOR_COMMAND',
+)
 
 export const OPEN_FONT_COLOR_DRAWER_COMMAND: LexicalCommand<{
   data?: FontColorNodeData | null
@@ -74,7 +70,7 @@ export class FontColorNode extends DecoratorBlockNode {
    */
   static importJSON(serializedNode: SerializedFontColorNode): FontColorNode {
     const importedData: FontColorNodeData = {
-      url: serializedNode.fields.url,
+      color: serializedNode.fields.color,
     }
     const node = $createFontColorNode(importedData)
     node.setFormat(serializedNode.format)
@@ -85,7 +81,7 @@ export class FontColorNode extends DecoratorBlockNode {
    * Allows you to render a React component within whatever createDOM returns.
    */
   decorate(): React.ReactElement {
-    return <FontColorComponent nodeKey={this.__key} data={this.__data} />
+    return <div />
   }
 
   exportDOM(): DOMExportOutput {

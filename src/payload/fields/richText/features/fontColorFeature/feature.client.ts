@@ -23,7 +23,7 @@ export const FontColorFeatureClient = createClientFeature({
       position: 'normal',
     },
   ],
-  nodes: [FontColorNode],
+  // nodes: [FontColorNode],
 
   toolbarInline: {
     groups: [

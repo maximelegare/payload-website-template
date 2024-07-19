@@ -12,11 +12,11 @@ const urlField: TextField = {
 export const FontColorFeature = createServerFeature({
   feature: {
     ClientFeature: FontColorFeatureClient,
-    nodes: [
-      {
-        node: FontColorNode,
-      },
-    ],
+    // nodes: [
+    //   {
+    //     node: FontColorNode,
+    //   },
+    // ],
     generateSchemaMap: () => {
       const schemaMap = new Map<string, Field[]>()
 

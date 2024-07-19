@@ -11,6 +11,7 @@ import {
   HeadingFeature,
   LinkFeature,
   lexicalEditor,
+  TreeViewFeature
 } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp' // editor-import
 import { UnderlineFeature } from '@payloadcms/richtext-lexical'
@@ -73,6 +74,7 @@ export default buildConfig({
     features: ({defaultFeatures}) => {
       return [
         ...defaultFeatures,
+        TreeViewFeature(),
         FontColorFeature(),
         // EmbedFeature(),
         LinkFeature({
