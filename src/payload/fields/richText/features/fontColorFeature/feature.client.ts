@@ -14,7 +14,8 @@ import { FC } from 'react'
 import { FontColorPlugin } from './plugins'
 import { ColorPicker } from './components/ColorPickerComponent'
 
-
+import { DropdownColorPicker } from './components/DropdownColorPicker'
+import { DropdownColorPickerWrapper } from './components/ColorPicker/DropdownColorPickerWrapper'
 
 export const FontColorFeatureClient = createClientFeature({
   plugins: [
@@ -32,7 +33,7 @@ export const FontColorFeatureClient = createClientFeature({
           key: 'fontColor',
           label: 'Color Text',
           ChildComponent: () => FontColorIcon({ color: 'red' }),
-          onSelect: () => {}
+          onSelect: () => {},
         },
       ]),
     ],
@@ -43,8 +44,8 @@ export const FontColorFeatureClient = createClientFeature({
         {
           key: 'fontColor',
           label: 'Color Text',
-          ChildComponent: () => FontColorIcon({color: 'red'}),
-          order:4,
+          ChildComponent: DropdownColorPickerWrapper,
+          order: 4,
           onSelect: () => {},
         },
       ]),
