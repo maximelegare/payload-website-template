@@ -7,23 +7,15 @@ import {
   toolbarFeatureButtonsGroupWithItems,
 } from '@payloadcms/richtext-lexical/client'
 import { toolbarTextDropdownGroupWithItems } from '@payloadcms/richtext-lexical/client'
-import { FontColorNode, OPEN_FONT_COLOR_DRAWER_COMMAND } from './nodes/FontColorNode'
 import { EmbedPlugin } from '../embedFeature/plugins'
 import { FontColorIcon } from './icons/FontColorIcon'
 import { FC } from 'react'
-import { FontColorPlugin } from './plugins'
 import { DropdownColorPicker } from './components/ColorPicker/DropdownColorPicker'
 
 
 
 export const FontColorFeatureClient = createClientFeature({
-  plugins: [
-    {
-      Component: FontColorPlugin,
-      position: 'normal',
-    },
-  ],
-  // nodes: [FontColorNode],
+
 
   toolbarInline: {
     groups: [

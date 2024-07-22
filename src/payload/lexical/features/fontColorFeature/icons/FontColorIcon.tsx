@@ -3,8 +3,6 @@
 import React, { useEffect } from 'react'
 import type { SVGProps } from 'react'
 
-import { useModal } from '@payloadcms/ui'
-import { modalSlug } from '../plugins'
 
 import appTheme from '@@/colors'
 
