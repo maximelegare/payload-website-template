@@ -35,8 +35,8 @@ import { defaultLocale, locales } from 'ROOT/locales/locales'
 
 import { en } from 'payload/i18n/en'
 import { fr } from 'payload/i18n/fr'
-import { EmbedFeature } from '@payload/fields/richText/features/embedFeature/feature.server'
-import { FontColorFeature } from '@payload/fields/richText/features/fontColorFeature/feature.server'
+import { EmbedFeature } from '@payload/lexical/features/embedFeature/feature.server'
+import { FontColorFeature } from '@payload/lexical/features/fontColorFeature/feature.server'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

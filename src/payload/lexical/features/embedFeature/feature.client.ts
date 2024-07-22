@@ -5,9 +5,9 @@ import {
   slashMenuBasicGroupWithItems,
   toolbarAddDropdownGroupWithItems,
 } from '@payloadcms/richtext-lexical/client'
-import { EmbedNode, OPEN_EMBED_DRAWER_COMMAND } from '../embedFeature/nodes/EmbedNode'
-import { EmbedPlugin } from '../embedFeature/plugins'
-import { EmbedIcon } from '../embedFeature/icons/EmbedIcon'
+import { EmbedNode, OPEN_EMBED_DRAWER_COMMAND } from './nodes/EmbedNode'
+import { EmbedPlugin } from './plugins'
+import { EmbedIcon } from './icons/EmbedIcon'
 
 export const EmbedFeatureClient = createClientFeature({
   plugins: [

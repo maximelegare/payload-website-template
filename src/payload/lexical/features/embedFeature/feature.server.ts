@@ -1,6 +1,6 @@
 import { createServerFeature } from '@payloadcms/richtext-lexical'
 import { EmbedFeatureClient } from './feature.client'
-import { EmbedNode } from '../embedFeature/nodes/EmbedNode'
+import { EmbedNode } from './nodes/EmbedNode'
 import { Field, TextField } from 'payload'
 
 const urlField: TextField = {
