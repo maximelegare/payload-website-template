@@ -9,6 +9,7 @@ import { $getSelection, $isRangeSelection } from 'lexical'
 
 import { $patchStyleText } from '@lexical/selection'
 import { HexColorPickerView } from './views/HexColorPIcker'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@payload/components/ui/tabs-list'
 
 type DropdownColorPickerProps = {
   fontColor: string
@@ -30,5 +31,20 @@ export const ColorPickerWrapper = ({ fontColor, onFontColorChange }: DropdownCol
     onFontColorChange(value)
     applyStyleText({ color: value })
   }
-  return <HexColorPickerView fontColor={fontColor} onFontColorChange={onFontColorSelect} />
+  return (
+    <Tabs defaultValue="hex" className='h-[300px]'>
+      <TabsList className='gap-1'>
+        <TabsTrigger value="theme">Theme</TabsTrigger>
+        <TabsTrigger value="hex">HEX</TabsTrigger>
+        <TabsTrigger value="rgb">RGB</TabsTrigger>
+        <TabsTrigger value="hsl">HSL</TabsTrigger>
+      </TabsList>
+      <TabsContent value="hex">
+        <HexColorPickerView fontColor={fontColor} onFontColorChange={onFontColorSelect} />
+      </TabsContent>
+      <TabsContent value="theme">Theme</TabsContent>
+      <TabsContent value="rgb">RGB</TabsContent>
+      <TabsContent value="hsl">HSL</TabsContent>
+    </Tabs>
+  )
 }

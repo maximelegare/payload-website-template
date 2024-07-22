@@ -8,17 +8,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@app/components/ui/dropdown-menu'
+} from '@payload/components/ui/dropdown-menu'
 
 export const DropdownColorPicker = () => {
   const [fontColor, setFontColor] = useState('')
 
   return (
-    <DropdownMenu>
+    <DropdownMenu >
       <DropdownMenuTrigger className="toolbar-popup__button toolbar-popup__button-bold">
         <FontColorIcon underscoreColor={fontColor} />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent side='top'>
         <ColorPickerWrapper fontColor={fontColor} onFontColorChange={setFontColor} />
       </DropdownMenuContent>
     </DropdownMenu>
