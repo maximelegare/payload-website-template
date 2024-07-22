@@ -12,10 +12,9 @@ import { EmbedPlugin } from '../embedFeature/plugins'
 import { FontColorIcon } from './icons/FontColorIcon'
 import { FC } from 'react'
 import { FontColorPlugin } from './plugins'
-import { ColorPicker } from './components/ColorPickerComponent'
+import { DropdownColorPicker } from './components/ColorPicker/DropdownColorPicker'
 
-import { DropdownColorPicker } from './components/DropdownColorPicker'
-import { DropdownColorPickerWrapper } from './components/ColorPicker/DropdownColorPickerWrapper'
+
 
 export const FontColorFeatureClient = createClientFeature({
   plugins: [
@@ -44,9 +43,8 @@ export const FontColorFeatureClient = createClientFeature({
         {
           key: 'fontColor',
           label: 'Color Text',
-          ChildComponent: DropdownColorPickerWrapper,
+          Component: DropdownColorPicker,
           order: 4,
-          onSelect: () => {},
         },
       ]),
     ],

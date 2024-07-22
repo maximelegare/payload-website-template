@@ -23,7 +23,7 @@ import {
 } from '../nodes/FontColorNode'
 import { FieldsDrawer, ToolbarDropdown } from '@payloadcms/richtext-lexical/client'
 import { Modal, useModal } from '@payloadcms/ui'
-import { ColorPicker } from '../components/ColorPickerComponent'
+import { ColorPickerWrapper } from '../components/ColorPicker/ColorPicker'
 import { FontColorIcon } from '../icons/FontColorIcon'
 import { boundModalToHTMLElement } from '@payload/hooks/boundTwoHTMLElements'
 import { CustomToolbarDropdown } from '@payload/components/CustomToolbarDropdown'
@@ -140,10 +140,9 @@ export const FontColorPlugin: PluginComponent = () => {
 
         top: `${modalPositions.y + 35}px`,
         right: `${modalPositions.x}px`,
-
       }}
     >
-      <ColorPicker onFontColorChange={onFontColorSelect} fontColor={fontColor} />
+      <ColorPickerWrapper onFontColorChange={onFontColorSelect} fontColor={fontColor} />
     </Modal>
   )
 }
