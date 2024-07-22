@@ -1,6 +1,6 @@
 import type { StaticImageData } from 'next/image'
 
-import { cn } from '@app/utilities/cn'
+import { cn } from '@@/lib/cn'
 import React from 'react'
 import RichText from 'src/app/components/RichText'
 

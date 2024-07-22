@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/heading-has-content */
-import { cn } from '@app/utilities/cn'
+import { cn } from '@@/lib/cn'
 import * as React from 'react'
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
