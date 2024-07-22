@@ -1,5 +1,7 @@
 'use client'
 
+import '@app/(frontend)/[locale]/css/theme.scss'
+
 import { useState } from 'react'
 import { HexColorPicker } from 'react-colorful'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
