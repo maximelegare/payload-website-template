@@ -11,6 +11,7 @@ import { $patchStyleText } from '@lexical/selection'
 import { HexColorPickerView } from './views/HexColorPIcker'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@@/shared/ui/tabs-list'
 import { ThemeColors } from './views/ThemeColors'
+import { HSLColorPickerView } from './views/HSLColorPicker'
 
 type DropdownColorPickerProps = {
   fontColor: string
@@ -33,7 +34,7 @@ export const ColorPickerWrapper = ({ fontColor, onFontColorChange }: DropdownCol
     applyStyleText({ color: value })
   }
   return (
-    <Tabs defaultValue="theme" className="h-[300px] w-[200px]">
+    <Tabs defaultValue="theme" className="h-[380px] w-[200px]">
       <TabsList className="gap-1 mb-2">
         <TabsTrigger value="theme">Theme</TabsTrigger>
         <TabsTrigger value="hex">HEX</TabsTrigger>
@@ -47,7 +48,9 @@ export const ColorPickerWrapper = ({ fontColor, onFontColorChange }: DropdownCol
         <ThemeColors onColorClick={onFontColorSelect} />
       </TabsContent>
       <TabsContent value="rgb">RGB</TabsContent>
-      <TabsContent value="hsl">HSL</TabsContent>
+      <TabsContent value="hsl">
+        <HSLColorPickerView fontColor={fontColor} onFontColorChange={onFontColorChange} />
+      </TabsContent>
     </Tabs>
   )
 }
