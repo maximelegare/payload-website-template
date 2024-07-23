@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import type { SVGProps } from 'react'
 
 
-import appTheme from '@@/colors'
+
 
 type Props = SVGProps<SVGSVGElement> & { underscoreColor?: string }
 
@@ -43,7 +43,7 @@ export function FontColorIcon(props?: Props) {
           marginTop: '3px',
           width: '20px',
           height: '3px',
-          backgroundColor: "hsl(var(--success))",
+          backgroundColor: props.underscoreColor,
         }}
       ></div>
     </div>
