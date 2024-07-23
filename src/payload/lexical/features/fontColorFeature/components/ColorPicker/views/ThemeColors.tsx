@@ -1,7 +1,7 @@
 import React from 'react'
 
 import appTheme from '@app/(frontend)/[locale]/css/colors'
-import { ScrollArea } from '@app/components/ui/scroll-area'
+import { ScrollArea } from '@@/shared/ui/scroll-area'
 
 type Props = {
   onColorClick: (color: string) => void

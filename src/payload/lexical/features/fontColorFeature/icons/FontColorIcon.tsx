@@ -3,9 +3,6 @@
 import React, { useEffect } from 'react'
 import type { SVGProps } from 'react'
 
-
-
-
 type Props = SVGProps<SVGSVGElement> & { underscoreColor?: string }
 
 export function FontColorIcon(props?: Props) {
@@ -17,6 +14,8 @@ export function FontColorIcon(props?: Props) {
         alignItems: 'center',
         flexDirection: 'column',
         marginTop: '5px',
+        border: 'none',
+        outline: 'none',
       }}
       id="lexical-font-color-icon"
     >

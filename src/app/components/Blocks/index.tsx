@@ -1,4 +1,4 @@
-import { cn } from '@@/lib/cn'
+import { cn } from '@@/shared/lib/cn'
 import React, { Fragment } from 'react'
 
 import type { Page } from '../../../payload-types'

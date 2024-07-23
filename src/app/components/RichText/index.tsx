@@ -1,4 +1,4 @@
-import { cn } from '@@/lib/cn'
+import { cn } from '@@/shared/lib/cn'
 import React from 'react'
 
 import { serializeLexical } from './serialize'

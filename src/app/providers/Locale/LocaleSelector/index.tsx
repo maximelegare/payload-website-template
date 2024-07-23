@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@app/components/ui/select'
+} from '@@/shared/ui/select'
 import React, { useState } from 'react'
 
 

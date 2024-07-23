@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@payload/components/ui/dropdown-menu'
+} from '@@/shared/ui/dropdown-menu'
 
 export const DropdownColorPicker = () => {
   const [fontColor, setFontColor] = useState('')

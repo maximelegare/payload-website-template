@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { cn } from '@@/lib/cn'
+import { cn } from '@@/shared/lib/cn'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'
@@ -13,7 +13,7 @@ import { Providers } from '../../providers'
 import { InitTheme } from '../../providers/Theme/InitTheme'
 import { mergeOpenGraph } from '../../utilities/mergeOpenGraph'
 import './css/globals.css'
-import { ScrollArea } from '@app/components/ui/scroll-area'
+import { ScrollArea } from '@@/shared/ui/scroll-area'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
