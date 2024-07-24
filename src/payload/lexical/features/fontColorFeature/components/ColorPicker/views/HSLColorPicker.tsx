@@ -7,6 +7,7 @@ import { translateColor } from '../../../utils/translateColor'
 interface Props {
   onFontColorChange?: (color: string) => void
   fontColor: string
+  onApplyStyles:() => void
 }
 
 export const HSLColorPickerView = ({ fontColor, onFontColorChange }: Props) => {

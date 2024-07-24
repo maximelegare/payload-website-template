@@ -1,72 +1,47 @@
 'use client'
 
 import '@app/(frontend)/[locale]/css/theme.scss'
-
-import { useEffect, useState } from 'react'
-
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-import { $getSelection, $isRangeSelection, $setSelection, BaseSelection } from 'lexical'
-
-import { $patchStyleText } from '@lexical/selection'
 import { HexColorPickerView } from './views/HexColorPicker'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@@/shared/ui/tabs-list'
 import { ThemeColors } from './views/ThemeColors'
 import { HSLColorPickerView } from './views/HSLColorPicker'
+import { Button } from '@payloadcms/ui'
 
 type DropdownColorPickerProps = {
   fontColor: string
   onFontColorChange: (color: string) => void
+  onApplyStyles: () => void
 }
 
-export const ColorPickerWrapper = ({ fontColor, onFontColorChange }: DropdownColorPickerProps) => {
-  const [editor] = useLexicalComposerContext()
-  const [lexicalSelection, setLexicalSelection] = useState<BaseSelection>(null)
-
-  useEffect(() => {
-    editor.getEditorState().read(() => {
-      const selection = $getSelection()
-      if ($isRangeSelection(selection)) {
-        setLexicalSelection(selection.clone())
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    console.log(lexicalSelection)
-  }, [lexicalSelection])
-
-  const applyStyleText = (styles: Record<string, string>) => {
-    editor.update(() => {
-      if (lexicalSelection) {
-        $setSelection(lexicalSelection.clone())
-        $patchStyleText(lexicalSelection, styles)
-      }
-    })
-  }
-
-  const onFontColorSelect = (value: string) => {
-    onFontColorChange(value)
-    applyStyleText({ color: value })
-  }
-
+export const ColorPickerWrapper = ({
+  fontColor,
+  onFontColorChange,
+  onApplyStyles,
+}: DropdownColorPickerProps) => {
   return (
-    <Tabs defaultValue="theme" className="h-[380px] w-[200px]">
+    <Tabs defaultValue="theme" className="h-[260px] w-[400px]">
       <TabsList className="gap-1 mb-2">
         <TabsTrigger value="theme">Theme</TabsTrigger>
-        <TabsTrigger value="hex">HEX</TabsTrigger>
-        <TabsTrigger value="rgb">RGB</TabsTrigger>
-        <TabsTrigger value="hsl">HSL</TabsTrigger>
+        <TabsTrigger value="color-picker">Color Picker</TabsTrigger>
       </TabsList>
-      <TabsContent value="hex">
-        <HexColorPickerView fontColor={fontColor} onFontColorChange={onFontColorSelect} />
-      </TabsContent>
       <TabsContent value="theme">
-        <ThemeColors onColorClick={onFontColorSelect} />
+        <ThemeColors onApplyStyles={onFontColorChange} />
       </TabsContent>
-      <TabsContent value="rgb">RGB</TabsContent>
+      <TabsContent value="color-picker">
+        <HexColorPickerView
+          onApplyStyles={onApplyStyles}
+          fontColor={fontColor}
+          onFontColorChange={onFontColorChange}
+        />
+      </TabsContent>
+      {/* <TabsContent value="rgb">RGB</TabsContent>
       <TabsContent value="hsl">
-        <HSLColorPickerView fontColor={fontColor} onFontColorChange={onFontColorSelect} />
-      </TabsContent>
+        <HSLColorPickerView
+          onApplyStyles={onApplyStyles}
+          fontColor={fontColor}
+          onFontColorChange={onFontColorChange}
+        />
+      </TabsContent> */}
     </Tabs>
   )
 }

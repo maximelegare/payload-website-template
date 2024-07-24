@@ -3,13 +3,15 @@ import { Label } from '@@/shared/ui/label'
 import React, { useEffect } from 'react'
 import { HexColorPicker } from 'react-colorful'
 import { translateColor } from '../../../utils/translateColor'
+import { Button } from '@payloadcms/ui'
 
 interface Props {
   onFontColorChange: (color: string) => void
   fontColor: string
+  onApplyStyles: () => void
 }
 
-export const HexColorPickerView = ({ fontColor, onFontColorChange }: Props) => {
+export const HexColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }: Props) => {
   const [color, setColor] = React.useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = React.useState(true)
 
@@ -37,7 +39,7 @@ export const HexColorPickerView = ({ fontColor, onFontColorChange }: Props) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const color = e.target.value
     setColor(color)
-    onFontColorChange(`#${color}`)
+    onFontColorChange(color)
   }
 
   return (
@@ -51,10 +53,10 @@ export const HexColorPickerView = ({ fontColor, onFontColorChange }: Props) => {
               handleFontColorChange(color)
             }}
           />
-          <div className="flex gap-2 items-center w-full">
+          {/* <div className="flex gap-2 items-center w-full">
             <Label htmlFor="hex-color-picker-input">HEX</Label>
             <Input
-              value={cleanInput(color) || color}
+              value={cleanInput(color)}
               id="hex-color-picker-input"
               beforeIcon={<span className="text-lg">#</span>}
               type="text"
@@ -63,7 +65,10 @@ export const HexColorPickerView = ({ fontColor, onFontColorChange }: Props) => {
               onChange={handleInputChange}
               onBlur={(e) => cleanInput(e.target.value)}
             />
-          </div>
+          </div> */}
+          {/* <Button size='small'  buttonStyle="primary" onClick={onApplyStyles}>
+            Apply
+          </Button> */}
         </div>
       )}
     </>
