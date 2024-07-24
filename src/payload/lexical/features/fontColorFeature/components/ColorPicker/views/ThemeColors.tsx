@@ -9,7 +9,7 @@ type Props = {
 
 export const ThemeColors = ({ onApplyStyles }: Props) => {
   return (
-    <ScrollArea className="h-[210px] overflow-auto">
+    <ScrollArea className="h-[250px] overflow-auto">
       <div className="flex flex-col gap-2">
         {Object.entries(appTheme).map(([color, variable]) => {
           return (

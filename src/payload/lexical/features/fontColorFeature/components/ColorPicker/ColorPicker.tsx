@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@@/shared/ui/tabs-list
 import { ThemeColors } from './views/ThemeColors'
 import { HSLColorPickerView } from './views/HSLColorPicker'
 import { Button } from '@payloadcms/ui'
+import { ColorPickerView } from './views/ColorPickerView'
 
 type DropdownColorPickerProps = {
   fontColor: string
@@ -19,7 +20,7 @@ export const ColorPickerWrapper = ({
   onApplyStyles,
 }: DropdownColorPickerProps) => {
   return (
-    <Tabs defaultValue="theme" className="h-[260px] w-[400px]">
+    <Tabs defaultValue="theme" className="h-[300px] w-[400px]">
       <TabsList className="gap-1 mb-2">
         <TabsTrigger value="theme">Theme</TabsTrigger>
         <TabsTrigger value="color-picker">Color Picker</TabsTrigger>
@@ -28,11 +29,16 @@ export const ColorPickerWrapper = ({
         <ThemeColors onApplyStyles={onFontColorChange} />
       </TabsContent>
       <TabsContent value="color-picker">
-        <HexColorPickerView
+        <ColorPickerView
           onApplyStyles={onApplyStyles}
           fontColor={fontColor}
           onFontColorChange={onFontColorChange}
         />
+        {/* <HexColorPickerView
+          onApplyStyles={onApplyStyles}
+          fontColor={fontColor}
+          onFontColorChange={onFontColorChange}
+        /> */}
       </TabsContent>
       {/* <TabsContent value="rgb">RGB</TabsContent>
       <TabsContent value="hsl">
