@@ -42,7 +42,7 @@ export function FontColorIcon(props?: Props) {
           marginTop: '3px',
           width: '20px',
           height: '3px',
-          backgroundColor: props.underscoreColor,
+          backgroundColor: props.underscoreColor || "#000000",
         }}
       ></div>
     </div>

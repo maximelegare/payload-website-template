@@ -30,16 +30,3 @@ export const ThemeColors = ({ onColorClick }: Props) => {
     </ScrollArea>
   )
 }
-{
-  /* <>
-  {Object.entries(appColors).map(([color, variable]) => {
-    return (
-      <div
-        key={color}
-        style={{ backgroundColor: `hsl(var(${variable}))` }}
-        className={`h-8 w-8 border-white border-[1px] border-solid`}
-      ></div>
-    )
-  })}
-</> */
-}

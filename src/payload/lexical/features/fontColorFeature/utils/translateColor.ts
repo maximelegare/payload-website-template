@@ -1,7 +1,8 @@
-import { ColorTranslator } from 'colortranslator'
+import { ColorTranslator, HSLObject, RGBObject } from 'colortranslator'
+import { checkValidColor } from './checkValidColor'
 
 export function translateColor(
-  color: string| Object,
+  color: string | HSLObject,
   translateTo: 'HEX' | 'HSLstring' | 'RGBstring',
 ): string | undefined
 export function translateColor(
@@ -15,21 +16,36 @@ export function translateColor(
 
 // Implement the function
 export function translateColor(
-  color: string,
+  color: string | HSLObject,
   translateTo: 'HEX' | 'RGB' | 'HSL' | 'RGBstring' | 'HSLstring',
-): string | { R: number; G: number; B: number } | { H: number; S: number; L: number } | undefined {
-  if (color === '') return
+): string | { R: number; G: number; B: number } | { H: number; S: number; L: number } {
+  let __color: string
+
+  if (typeof color === 'string') {
+    __color = color
+  }
+
+  if (
+    typeof color === 'object' &&
+    color.H !== undefined &&
+    color.S !== undefined &&
+    color.L !== undefined
+  ) {
+    __color = `hsl(${color.H}, ${color.S}%, ${color.L}%)`
+  }
+
+  const isValid = checkValidColor(__color)
 
   switch (translateTo) {
     case 'HEX':
-      return ColorTranslator.toHEX(color)
+      return isValid ? ColorTranslator.toHEX(color) : '#000000'
     case 'RGB':
-      return new ColorTranslator(color).RGBObject
+      return isValid ? new ColorTranslator(color).RGBObject : { R: 0, G: 0, B: 0 }
     case 'HSL':
-      return new ColorTranslator(color).HSLObject
+      return isValid ? new ColorTranslator(color).HSLObject : { H: 0, S: 0, L: 0 }
     case 'HSLstring':
-      return new ColorTranslator(color).HSL
+      return isValid ? new ColorTranslator(color).HSL : 'hsl(0, 0%, 0%)'
     case 'RGBstring':
-      return new ColorTranslator(color).RGB
+      return isValid ? new ColorTranslator(color).RGB : 'rgb(0, 0, 0)'
   }
 }
