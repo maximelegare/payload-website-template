@@ -20,7 +20,7 @@ export const ColorPickerWrapper = ({
   onApplyStyles,
 }: DropdownColorPickerProps) => {
   return (
-    <Tabs defaultValue="theme" className="h-[350px] w-[310px]">
+    <Tabs defaultValue="theme"  className="h-[350px] w-[310px]">
       <TabsList className="gap-1 mb-2">
         <TabsTrigger value="theme">Theme</TabsTrigger>
         <TabsTrigger value="color-picker">Color Picker</TabsTrigger>
