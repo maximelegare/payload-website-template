@@ -46,7 +46,7 @@ export const DropdownColorPicker = () => {
               // The color is not the same as the first node, so return the default color
               // Meaning there are multiple nodes with different colors
             } else {
-              return '#000000'
+              return undefined
             }
           }
         }, '')

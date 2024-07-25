@@ -37,14 +37,18 @@ export function FontColorIcon(props?: Props) {
           />
         </g>
       </svg>
-      <div
-        style={{
-          marginTop: '3px',
-          width: '20px',
-          height: '3px',
-          backgroundColor: props.underscoreColor || "#000000",
-        }}
-      ></div>
+      {props.underscoreColor ? (
+        <div
+          style={{
+            marginTop: '3px',
+            width: '20px',
+            height: '3px',
+            backgroundColor: props.underscoreColor,
+          }}
+        ></div>
+      ) : (
+        <div style={{ fontSize: '8px', marginTop: '1px' }}>???</div>
+      )}
     </div>
   )
 }
