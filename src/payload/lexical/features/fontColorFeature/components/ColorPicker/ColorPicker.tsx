@@ -17,26 +17,28 @@ type DropdownColorPickerProps = {
   onApplyStyles: () => void
 }
 
+export type ColorSpectrum = 'hex' | 'hsl' | 'rgb'
+
 export const ColorPickerWrapper = ({
   fontColor,
   onFontColorChange,
   onApplyStyles,
 }: DropdownColorPickerProps) => {
-  const [view, setView] = useState('theme')
+  const [colorSpectrum, setColorSpectrum] = useState<ColorSpectrum>('hex')
 
   return (
     <div className="flex">
-      <Tabs
-        onValueChange={(value) => setView(value)}
-        defaultValue="theme"
-        className="h-[350px] w-[310px]"
-      >
+      <Tabs defaultValue="theme" className="h-[350px] w-[310px]">
         <TabsList className="gap-1 mb-2">
           <TabsTrigger value="theme">Theme</TabsTrigger>
           <TabsTrigger value="color-picker">Color Picker</TabsTrigger>
         </TabsList>
         <TabsContent value="theme">
-          <ThemeColors onApplyStyles={onFontColorChange} />
+          <ThemeColors
+            colorSpectrum={colorSpectrum}
+            onColorSpectrumChange={setColorSpectrum}
+            onApplyStyles={onFontColorChange}
+          />
         </TabsContent>
         <TabsContent value="color-picker">
           <ColorPickerView

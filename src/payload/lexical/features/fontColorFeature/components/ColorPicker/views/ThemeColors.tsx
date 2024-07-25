@@ -7,19 +7,18 @@ import { translateColor } from '../../../utils/translateColor'
 import { RadioGroup, RadioGroupItem } from '@@/shared/ui/radio-group'
 import { Label } from '@@/shared/ui/label'
 import { Separator } from '@@/shared/ui/seperator'
+import { ColorSpectrum } from '../ColorPicker'
 
 type Props = {
   onApplyStyles: (color: string) => void
+  onColorSpectrumChange: (colorSpectrum: ColorSpectrum) => void
+  colorSpectrum: ColorSpectrum
 }
 
-export type ColorSpectrum = 'hex' | 'hsl' | 'rgb'
-
-export const ThemeColors = ({ onApplyStyles }: Props) => {
-  const [colorSpectrum, setColorSpectrum] = useState<ColorSpectrum>('hex')
-
+export const ThemeColors = ({ onApplyStyles, onColorSpectrumChange, colorSpectrum }: Props) => {
   return (
     <div>
-      <RadioGroupList value={colorSpectrum} onValueChange={setColorSpectrum} />
+      <RadioGroupList value={colorSpectrum} onValueChange={onColorSpectrumChange} />
       <Separator className="my-2" />
       <ScrollArea className="h-[265px] overflow-auto">
         <div className="flex flex-col gap-2">
