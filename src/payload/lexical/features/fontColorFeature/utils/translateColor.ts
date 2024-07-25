@@ -6,11 +6,11 @@ export function translateColor(
   translateTo: 'HEX' | 'HSLstring' | 'RGBstring',
 ): string | undefined
 export function translateColor(
-  color: string,
+  color: string | HSLObject,
   translateTo: 'RGB',
 ): { R: number; G: number; B: number } | undefined
 export function translateColor(
-  color: string,
+  color: string | HSLObject,
   translateTo: 'HSL',
 ): { H: number; S: number; L: number } | undefined
 

@@ -4,6 +4,9 @@ import React, { useEffect } from 'react'
 import { HexColorPicker } from 'react-colorful'
 import { translateColor } from '../../../utils/translateColor'
 import { Button } from '@payloadcms/ui'
+import { HSLObject, RGBObject } from 'colortranslator'
+import { transformKeys } from '@payload/utilities/transformKeys'
+import { HslColor, RgbColor } from 'react-colorful'
 
 interface Props {
   onFontColorChange: (color: string) => void
@@ -14,7 +17,13 @@ interface Props {
 export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }: Props) => {
   const [color, setColor] = React.useState<string | undefined>(undefined)
 
-  const [inputs, setInputs] = React.useState({
+  type InputsColors = {
+    hex: { value: string }
+    rgb: { r: number; g: number; b: number }
+    hsl: { h: number; s: number; l: number }
+  }
+
+  const [inputs, setInputs] = React.useState<InputsColors>({
     hex: { value: '#000000' },
     rgb: { r: 0, g: 0, b: 0 },
     hsl: { h: 0, s: 0, l: 0 },
@@ -51,23 +60,43 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
     const name = e.target.name.split('.')[0]
     const subName = e.target.name.split('.')[1]
 
+    const getValues = getColorsValues(value, name)
+
+    setColor(getValues.hex.value)
+
     setInputs((prev) => ({
       ...prev,
       [name]: { ...prev[name], [subName]: name === 'hex' ? value : parseInt(value) },
     }))
+  }
+
+  const getColorsValues = (value: string, name: string): InputsColors => {
+    // const subName = e.target.name.split('.')[1]
     let HEX: string
+    let HSL: HslColor
+    // let RGB: RgbColor
+
     if (name === 'hex') {
-      HEX = value
-      onFontColorChange(`#${value}`)
+      HEX = '#' + value
+      HSL = transformKeys(translateColor(HEX, 'HSL'), 'toLowerCase')
+      // RGB = translateColor(HEX, 'RGB')
     } else if (name === 'hsl') {
-      HEX = translateColor({ H: inputs.hsl.h, S: inputs.hsl.s, L: inputs.hsl.l }, 'HEX')
-    } else if (name === 'rgb') {
-      console.log('RGB')
-      // HEX = translateColor({ R: inputs.rgb.r, G: inputs.rgb.g, B: inputs.rgb.b }, 'HEX')
+      HEX = translateColor(transformKeys(inputs.hsl, 'toUpperCase'), 'HEX')
+      HSL = inputs.hsl
     }
 
-    setColor(HEX)
-    console.log(HEX)
+    return { hex: { value: HEX }, hsl: HSL, rgb: { r: 0, g: 0, b: 0 } }
+
+    // setInputs({ hex: { value: HEX }, hsl: HSL, rgb: { r: 0, g: 0, b: 0 } })
+
+    // handleFontColorChange(inputs.hex.value)
+  }
+
+  const handleInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const values = getColorsValues(e.target.value, e.target.name.split('.')[0])
+    setInputs(values)
+    setColor(values.hex.value)
+    // handleFontColorChange(inputs.hex.value)
   }
 
   return (
@@ -93,7 +122,10 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
               maxLength={7}
               className="tracking-[0.2rem] text-base w-[120px]"
               onChange={handleInputChange}
-              onBlur={(e) => cleanInput(e.target.value)}
+              onBlur={(e) => {
+                handleInputBlur(e)
+                cleanInput(e.target.value)
+              }}
             />
           </div>
         </div>
@@ -113,6 +145,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
                 maxLength={7}
                 className="tracking-[0.2rem] text-base w-24"
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
               />
             </div>
             <div className="flex gap-2 items-center w-full">
@@ -129,6 +162,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
                 maxLength={7}
                 className="tracking-[0.2rem] text-base w-24"
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
               />
             </div>
             <div className="flex gap-2 items-center w-full">
@@ -145,6 +179,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
                 maxLength={7}
                 className="tracking-[0.2rem] text-base w-24"
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
               />
             </div>
           </div>
