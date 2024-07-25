@@ -3,12 +3,15 @@ import React, { useEffect, useRef } from 'react'
 import appTheme from '@app/(frontend)/[locale]/css/colors'
 import { ScrollArea } from '@@/shared/ui/scroll-area'
 import { createSentenceFromCamelCase } from '@payload/lexical/features/fontColorFeature/utils/createSentenceFromCamelCase'
+import { ColorSpectrum } from '../ColorPicker'
+
 
 type Props = {
   onApplyStyles: (color: string) => void
+  colorSpectrum: ColorSpectrum
 }
 
-export const ThemeColors = ({ onApplyStyles }: Props) => {
+export const ThemeColors = ({ onApplyStyles, colorSpectrum }: Props) => {
   return (
     <ScrollArea className="h-[300px] overflow-auto">
       <div className="flex flex-col gap-2">
