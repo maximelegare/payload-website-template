@@ -1,37 +1,42 @@
 import { ColorTranslator, HSLObject, RGBObject } from 'colortranslator'
 import { checkValidColor } from './checkValidColor'
 
+function isHSLObject(obj: any): obj is HSLObject {
+  return obj && typeof obj.H === 'number' && typeof obj.S === 'number' && typeof obj.L === 'number'
+}
+
+// Type guard for RGBObject
+function isRGBObject(obj: any): obj is RGBObject {
+  return obj && typeof obj.R === 'number' && typeof obj.G === 'number' && typeof obj.B === 'number'
+}
+
 export function translateColor(
-  color: string | HSLObject,
+  color: string | HSLObject | RGBObject,
   translateTo: 'HEX' | 'HSLstring' | 'RGBstring',
 ): string | undefined
 export function translateColor(
-  color: string | HSLObject,
+  color: string | RGBObject | HSLObject,
   translateTo: 'RGB',
 ): { R: number; G: number; B: number } | undefined
 export function translateColor(
-  color: string | HSLObject,
+  color: string | HSLObject | RGBObject,
   translateTo: 'HSL',
 ): { H: number; S: number; L: number } | undefined
 
 // Implement the function
 export function translateColor(
-  color: string | HSLObject,
+  color: string | HSLObject | RGBObject,
   translateTo: 'HEX' | 'RGB' | 'HSL' | 'RGBstring' | 'HSLstring',
 ): string | { R: number; G: number; B: number } | { H: number; S: number; L: number } {
+  
   let __color: string
 
   if (typeof color === 'string') {
     __color = color
-  }
-
-  if (
-    typeof color === 'object' &&
-    color.H !== undefined &&
-    color.S !== undefined &&
-    color.L !== undefined
-  ) {
+  } else if (isHSLObject(color)) {
     __color = `hsl(${color.H}, ${color.S}%, ${color.L}%)`
+  } else if (isRGBObject(color)) {
+    __color = `rgb(${color.R}, ${color.G}, ${color.B})`
   }
 
   const isValid = checkValidColor(__color)

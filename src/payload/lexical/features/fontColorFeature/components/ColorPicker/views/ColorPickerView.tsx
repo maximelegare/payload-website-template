@@ -5,8 +5,8 @@ import { HexColorPicker } from 'react-colorful'
 import { translateColor } from '../../../utils/translateColor'
 import { Button } from '@payloadcms/ui'
 import { HSLObject, RGBObject } from 'colortranslator'
-import { transformKeys } from '@payload/utilities/transformKeys'
 import { HslColor, RgbColor } from 'react-colorful'
+import { transformKeys } from '@payload/utilities/transformKeys'
 
 interface Props {
   onFontColorChange: (color: string) => void
@@ -16,11 +16,7 @@ interface Props {
 
 export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }: Props) => {
   const [color, setColor] = React.useState<string | undefined>(undefined)
-
-  const setColorPickerColor = (color: string) => {
-    setColor(color)
-    onFontColorChange(color)
-  }
+  const defaultColor = '#000000'
 
   type InputsColors = {
     hex: { value: string }
@@ -29,16 +25,21 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
   }
 
   const [inputs, setInputs] = React.useState<InputsColors>({
-    hex: { value: '#000000' },
+    hex: { value: defaultColor },
     rgb: { r: 0, g: 0, b: 0 },
     hsl: { h: 0, s: 0, l: 0 },
   })
 
-  useEffect(() => {
-    if (fontColor?.includes('--')) {
-      setColor('#000000')
-    }
-  }, [])
+  const setColorPickerColor = (color: string) => {
+    setColor(color)
+    onFontColorChange(color)
+  }
+
+  const updateInputs = (value: string, name: string) => {
+    const values = getColorsValues(value, name)
+    setInputs(values)
+    setColor(values.hex.value)
+  }
 
   const cleanInput = (string: string) => {
     if (typeof string === 'string' && string.includes('#')) {
@@ -48,8 +49,9 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
   }
 
   const handleFontColorChange = (color: string) => {
-    const HSL = translateColor(fontColor, 'HSL')
-    const RGB = translateColor(fontColor, 'RGB')
+    console.log(color)
+    const HSL = translateColor(color, 'HSL')
+    const RGB = translateColor(color, 'RGB')
 
     setInputs((prev) => ({
       hex: { value: color },
@@ -68,6 +70,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
 
     setColorPickerColor(getValues.hex.value)
 
+    // Sets only the value of the input that changed
     setInputs((prev) => ({
       ...prev,
       [name]: { ...prev[name], [subName]: name === 'hex' ? value : parseInt(value) },
@@ -78,30 +81,41 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
     // const subName = e.target.name.split('.')[1]
     let HEX: string
     let HSL: HslColor
-    // let RGB: RgbColor
+    let RGB: RgbColor
 
     if (name === 'hex') {
-      HEX = '#' + value
+      HEX = value.includes('#') ? value : `#${value}`
       HSL = transformKeys(translateColor(HEX, 'HSL'), 'toLowerCase')
-      // RGB = translateColor(HEX, 'RGB')
+      RGB = transformKeys(translateColor(HEX, 'RGB'), 'toLowerCase')
     } else if (name === 'hsl') {
       HEX = translateColor(transformKeys(inputs.hsl, 'toUpperCase'), 'HEX')
+      RGB = transformKeys(
+        translateColor(transformKeys(inputs.hsl, 'toUpperCase'), 'RGB'),
+        'toLowerCase',
+      )
       HSL = inputs.hsl
+    } else if (name === 'rgb') {
+      HEX = translateColor(transformKeys(inputs.rgb, 'toUpperCase'), 'HEX')
+      HSL = transformKeys(
+        translateColor(transformKeys(inputs.rgb, 'toUpperCase'), 'HSL'),
+        'toLowerCase',
+      )
+      RGB = inputs.rgb
     }
-
-    return { hex: { value: HEX }, hsl: HSL, rgb: { r: 0, g: 0, b: 0 } }
-
-    // setInputs({ hex: { value: HEX }, hsl: HSL, rgb: { r: 0, g: 0, b: 0 } })
-
-    // handleFontColorChange(inputs.hex.value)
+    return { hex: { value: HEX }, hsl: HSL, rgb: RGB }
   }
 
   const handleInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const values = getColorsValues(e.target.value, e.target.name.split('.')[0])
-    setInputs(values)
-    setColor(values.hex.value)
-    // handleFontColorChange(inputs.hex.value)
+    updateInputs(e.target.value, e.target.name.split('.')[0])
   }
+
+  useEffect(() => {
+    if (fontColor && !fontColor?.includes('--')) {
+      updateInputs(fontColor, 'hex')
+    } else {
+      updateInputs(defaultColor, 'hex')
+    }
+  }, [])
 
   return (
     <div className="flex flex-col">
@@ -187,7 +201,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
               />
             </div>
           </div>
-          {/* <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <div className="flex gap-2 items-center w-full">
               <Label htmlFor="hex-color-picker-input" className="w-3">
                 R
@@ -202,6 +216,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
                 maxLength={7}
                 className="tracking-[0.2rem] text-base w-24"
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
               />
             </div>
             <div className="flex gap-2 items-center w-full">
@@ -218,6 +233,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
                 maxLength={7}
                 className="tracking-[0.2rem] text-base w-24"
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
               />
             </div>
             <div className="flex gap-2 items-center w-full">
@@ -234,9 +250,10 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
                 maxLength={7}
                 className="tracking-[0.2rem] text-base w-24"
                 onChange={handleInputChange}
+                onBlur={handleInputBlur}
               />
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
       <div className="flex w-full justify-between">
