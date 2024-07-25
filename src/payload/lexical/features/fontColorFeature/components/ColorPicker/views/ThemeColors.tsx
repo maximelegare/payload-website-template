@@ -10,12 +10,12 @@ import { Separator } from '@@/shared/ui/seperator'
 import { ColorSpectrum } from '../ColorPicker'
 
 type Props = {
-  onApplyStyles: (color: string) => void
+  onFontColorChange: (color: string) => void
   onColorSpectrumChange: (colorSpectrum: ColorSpectrum) => void
   colorSpectrum: ColorSpectrum
 }
 
-export const ThemeColors = ({ onApplyStyles, onColorSpectrumChange, colorSpectrum }: Props) => {
+export const ThemeColors = ({ onFontColorChange, onColorSpectrumChange, colorSpectrum }: Props) => {
   return (
     <div>
       <RadioGroupList value={colorSpectrum} onValueChange={onColorSpectrumChange} />
@@ -28,7 +28,7 @@ export const ThemeColors = ({ onApplyStyles, onColorSpectrumChange, colorSpectru
                 colorSpectrum={colorSpectrum}
                 variableName={key}
                 key={key}
-                onApplyStyles={onApplyStyles}
+                onFontColorChange={onFontColorChange}
                 variable={variable}
               />
             )
@@ -42,11 +42,16 @@ export const ThemeColors = ({ onApplyStyles, onColorSpectrumChange, colorSpectru
 type BtnProps = {
   variableName: string
   variable: string
-  onApplyStyles: (color: string) => void
+  onFontColorChange: (color: string, cssVariableColor: string) => void
   colorSpectrum: ColorSpectrum
 }
 
-const ThemeColorButton = ({ variableName, variable, onApplyStyles, colorSpectrum }: BtnProps) => {
+const ThemeColorButton = ({
+  variableName,
+  variable,
+  onFontColorChange,
+  colorSpectrum,
+}: BtnProps) => {
   const colorRef = useRef(null)
   const [backgroundColor, setBackgroundColor] = React.useState(null)
 
@@ -77,7 +82,9 @@ const ThemeColorButton = ({ variableName, variable, onApplyStyles, colorSpectrum
   return (
     <button
       key={variableName}
-      onClick={() => onApplyStyles(translateColor(backgroundColor, 'HEX'))}
+      onClick={() =>
+        onFontColorChange(translateColor(backgroundColor, 'HEX'), `hsl(var(${variable}))`)
+      }
       className="border-none outiline-none flex gap-2 items-center cursor-pointer p-1 rounded-md bg-[var(--theme-elevation-0)] hover:bg-[var(--theme-elevation-50)]"
     >
       <div className="flex items-center w-full gap-2">

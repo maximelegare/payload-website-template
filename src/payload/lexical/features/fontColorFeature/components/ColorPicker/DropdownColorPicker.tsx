@@ -12,10 +12,7 @@ import { translateColor } from '../../utils/translateColor'
 export const DropdownColorPicker = () => {
   const [fontColor, setFontColor] = useState('')
   const [editor] = useLexicalComposerContext()
-
-  useEffect(() => {
-    console.log('FontColor', fontColor)
-  }, [fontColor])
+  const [CSSVariable, setCSSVariable] = useState<string | null>(null)
 
   function getNodeStyles(node: HTMLElement) {
     const computedStyle = getComputedStyle(node)
@@ -74,7 +71,11 @@ export const DropdownColorPicker = () => {
         'padding-bottom': '1px',
       })
     } else {
-      applyStyleTextToNodes({ color: fontColor, 'background-color': null, 'padding-bottom': null })
+      applyStyleTextToNodes({
+        color: CSSVariable ?? fontColor,
+        'background-color': null,
+        'padding-bottom': null,
+      })
     }
   }
 
@@ -92,7 +93,11 @@ export const DropdownColorPicker = () => {
         <ColorPickerWrapper
           onApplyStyles={() => handleOpenChange(false)}
           fontColor={fontColor}
-          onFontColorChange={setFontColor}
+          onFontColorChange={(color, cssVariableColor) => {
+            if (cssVariableColor) setCSSVariable(cssVariableColor)
+            else setCSSVariable(null)
+            setFontColor(color)
+          }}
         />
       </DropdownMenuContent>
     </DropdownMenu>

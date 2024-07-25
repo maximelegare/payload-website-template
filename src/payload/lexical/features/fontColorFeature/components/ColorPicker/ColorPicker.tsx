@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 type DropdownColorPickerProps = {
   fontColor: string
-  onFontColorChange: (color: string) => void
+  onFontColorChange: (color: string, cssVariableColor?:string) => void
   onApplyStyles: () => void
 }
 
@@ -32,7 +32,7 @@ export const ColorPickerWrapper = ({
           <ThemeColors
             colorSpectrum={colorSpectrum}
             onColorSpectrumChange={setColorSpectrum}
-            onApplyStyles={onFontColorChange}
+            onFontColorChange={onFontColorChange}
           />
         </TabsContent>
         <TabsContent value="color-picker">
