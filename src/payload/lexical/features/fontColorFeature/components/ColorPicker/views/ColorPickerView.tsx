@@ -49,7 +49,6 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
   }
 
   const handleFontColorChange = (color: string) => {
-    console.log(color)
     const HSL = translateColor(color, 'HSL')
     const RGB = translateColor(color, 'RGB')
 

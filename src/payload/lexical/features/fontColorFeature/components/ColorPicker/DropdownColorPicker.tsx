@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ColorPickerWrapper } from './ColorPicker'
 
 import { FontColorIcon } from '../../icons/FontColorIcon'
@@ -8,11 +8,54 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@@/share
 import { $patchStyleText } from '@lexical/selection'
 import { $getSelection, $isRangeSelection } from 'lexical'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { translateColor } from '../../utils/translateColor'
 export const DropdownColorPicker = () => {
   const [fontColor, setFontColor] = useState('')
   const [editor] = useLexicalComposerContext()
 
-  const applyStyleText = (styles: Record<string, string>) => {
+  useEffect(() => {
+    console.log('FontColor', fontColor)
+  }, [fontColor])
+
+  function getNodeStyles(node: HTMLElement) {
+    const computedStyle = getComputedStyle(node)
+    return {
+      color: computedStyle.color,
+    }
+  }
+
+  function getNodesDefaultColor() {
+    editor.update(() => {
+      const selection = $getSelection()
+
+      if (selection !== null) {
+        const nodes = selection.getNodes()
+
+        // Check each node for the default color
+        const defaultColor = nodes.reduce((acc: string, node) => {
+          const domNode = editor.getElementByKey(node.getKey())
+          if (domNode) {
+            const HEXcolor = translateColor(getNodeStyles(domNode).color, 'HEX')
+            // If its the first node, set the default color
+            if (acc === '') {
+              acc = HEXcolor
+              return acc
+              // If its not the first node, check if the color is the same
+            } else if (acc === HEXcolor) {
+              return acc
+              // The color is not the same as the first node, so return the default color
+              // Meaning there are multiple nodes with different colors
+            } else {
+              return '#000000'
+            }
+          }
+        }, '')
+        setFontColor(defaultColor)
+      }
+    })
+  }
+
+  const applyStyleTextToNodes = (styles: Record<string, string>) => {
     editor.update(() => {
       const selection = $getSelection()
       if ($isRangeSelection(selection)) {
@@ -21,26 +64,33 @@ export const DropdownColorPicker = () => {
     })
   }
 
-  const handleChangeStyles = (open: boolean) => {
+  const updateStyles = (open: boolean) => {
     if (open) {
       // Sets the font color for the content in Lexcal
       // (if it loses the focus, the selection styling disapears)
-      applyStyleText({ 'background-color': '#7dccf8', color: '#000000', 'padding-bottom': '1px' })
+      applyStyleTextToNodes({
+        'background-color': '#7dccf8',
+        color: '#000000',
+        'padding-bottom': '1px',
+      })
     } else {
-      applyStyleText({ color: fontColor, 'background-color': null, 'padding-bottom': null })
+      applyStyleTextToNodes({ color: fontColor, 'background-color': null, 'padding-bottom': null })
     }
   }
 
+  const handleOpenChange = (open: boolean) => {
+    if (open) getNodesDefaultColor()
+    updateStyles(open)
+  }
+
   return (
-    <DropdownMenu  onOpenChange={handleChangeStyles}>
-      <DropdownMenuTrigger
-        className="toolbar-popup__button toolbar-popup__button-bold"
-      >
+    <DropdownMenu onOpenChange={handleOpenChange}>
+      <DropdownMenuTrigger className="toolbar-popup__button toolbar-popup__button-bold">
         <FontColorIcon underscoreColor={fontColor} />
       </DropdownMenuTrigger>
       <DropdownMenuContent side="top">
         <ColorPickerWrapper
-          onApplyStyles={() => handleChangeStyles(false)}
+          onApplyStyles={() => handleOpenChange(false)}
           fontColor={fontColor}
           onFontColorChange={setFontColor}
         />
