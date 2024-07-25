@@ -17,6 +17,11 @@ interface Props {
 export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }: Props) => {
   const [color, setColor] = React.useState<string | undefined>(undefined)
 
+  const setColorPickerColor = (color: string) => {
+    setColor(color)
+    onFontColorChange(color)
+  }
+
   type InputsColors = {
     hex: { value: string }
     rgb: { r: number; g: number; b: number }
@@ -51,8 +56,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
       hsl: { h: HSL.H, s: HSL.S, l: HSL.L },
       rgb: { r: RGB.R, g: RGB.G, b: RGB.B },
     }))
-    setColor(color)
-    onFontColorChange(color)
+    setColorPickerColor(color)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +66,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
 
     const getValues = getColorsValues(value, name)
 
-    setColor(getValues.hex.value)
+    setColorPickerColor(getValues.hex.value)
 
     setInputs((prev) => ({
       ...prev,
