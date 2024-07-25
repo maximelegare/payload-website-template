@@ -24,8 +24,6 @@ export const ColorPickerWrapper = ({
 }: DropdownColorPickerProps) => {
   const [view, setView] = useState('theme')
 
-  const [colorSpectrum, setColorSpectrum] = useState<ColorSpectrum>('hex')
-
   return (
     <div className="flex">
       <Tabs
@@ -36,12 +34,9 @@ export const ColorPickerWrapper = ({
         <TabsList className="gap-1 mb-2">
           <TabsTrigger value="theme">Theme</TabsTrigger>
           <TabsTrigger value="color-picker">Color Picker</TabsTrigger>
-          {view === 'theme' && (
-            <RadioGroupList value={colorSpectrum} onValueChange={setColorSpectrum} />
-          )}
         </TabsList>
         <TabsContent value="theme">
-          <ThemeColors onApplyStyles={onFontColorChange} colorSpectrum={colorSpectrum} />
+          <ThemeColors onApplyStyles={onFontColorChange} />
         </TabsContent>
         <TabsContent value="color-picker">
           <ColorPickerView
@@ -52,31 +47,5 @@ export const ColorPickerWrapper = ({
         </TabsContent>
       </Tabs>
     </div>
-  )
-}
-
-export type ColorSpectrum = 'hex' | 'hsl' | 'rgb'
-
-type RadioGroupListProps = {
-  value: ColorSpectrum
-  onValueChange: (value: ColorSpectrum) => void
-}
-const RadioGroupList = ({ onValueChange, value }: RadioGroupListProps) => {
-  return (
-    <RadioGroup onValueChange={onValueChange} value={value} className="flex">
-      <div className="flex items-center gap-1">
-        <RadioGroupItem value="hex" id="hex" />
-        <Label htmlFor="hex">HEX</Label>
-      </div>
-      <div className="flex items-center gap-1">
-        <RadioGroupItem value="hsl" id="hsl" />
-        <Label htmlFor="hsl">HSL</Label>
-      </div>
-
-      <div className="flex items-center gap-1">
-        <RadioGroupItem value="rgb" id="rgb" />
-        <Label htmlFor="rgb">RGB</Label>
-      </div>
-    </RadioGroup>
   )
 }
