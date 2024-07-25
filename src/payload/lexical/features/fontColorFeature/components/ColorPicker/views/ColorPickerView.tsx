@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import { HexColorPicker } from 'react-colorful'
 import { translateColor } from '../../../utils/translateColor'
 import { Button } from '@payloadcms/ui'
-import { HSLObject, RGBObject } from 'colortranslator'
 import { HslColor, RgbColor } from 'react-colorful'
 import { transformKeys } from '@payload/utilities/transformKeys'
 

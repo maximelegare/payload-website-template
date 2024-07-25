@@ -74,7 +74,7 @@ export default buildConfig({
     features: ({defaultFeatures}) => {
       return [
         ...defaultFeatures,
-        TreeViewFeature(),
+        // TreeViewFeature(),
         FontColorFeature(),
         // EmbedFeature(),
         LinkFeature({

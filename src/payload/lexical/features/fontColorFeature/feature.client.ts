@@ -16,19 +16,6 @@ import { DropdownColorPicker } from './components/ColorPicker/DropdownColorPicke
 
 export const FontColorFeatureClient = createClientFeature({
 
-
-  toolbarInline: {
-    groups: [
-      toolbarFeatureButtonsGroupWithItems([
-        {
-          key: 'fontColor',
-          label: 'Color Text',
-          ChildComponent: () => FontColorIcon({ color: 'red' }),
-          onSelect: () => {},
-        },
-      ]),
-    ],
-  },
   toolbarFixed: {
     groups: [
       toolbarFeatureButtonsGroupWithItems([
@@ -41,19 +28,4 @@ export const FontColorFeatureClient = createClientFeature({
       ]),
     ],
   },
-  // slashMenu: {
-  //   groups: [
-  //     slashMenuBasicGroupWithItems([
-  //       {
-  //         key: 'fontColor23424',
-  //         label: 'Color Text',
-  //         onSelect: ({ editor }) => {
-  //           editor.dispatchCommand(OPEN_FONT_COLOR_DRAWER_COMMAND, {})
-  //         },
-  //         keywords: ['color', 'text'],
-  //         Icon: FontColorIcon,
-  //       },
-  //     ]),
-  //   ],
-  // },
 })
