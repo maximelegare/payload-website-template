@@ -58,6 +58,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
     let HEX: string
     if (name === 'hex') {
       HEX = value
+      onFontColorChange(`#${value}`)
     } else if (name === 'hsl') {
       HEX = translateColor({ H: inputs.hsl.h, S: inputs.hsl.s, L: inputs.hsl.l }, 'HEX')
     } else if (name === 'rgb') {
@@ -67,8 +68,6 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
 
     setColor(HEX)
     console.log(HEX)
-
-    onFontColorChange(color)
   }
 
   return (
