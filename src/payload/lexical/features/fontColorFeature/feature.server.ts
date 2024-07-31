@@ -11,7 +11,7 @@ const urlField: TextField = {
 export const FontColorFeature = createServerFeature({
   feature: {
     ClientFeature: FontColorFeatureClient,
-  
+
     generateSchemaMap: () => {
       const schemaMap = new Map<string, Field[]>()
 

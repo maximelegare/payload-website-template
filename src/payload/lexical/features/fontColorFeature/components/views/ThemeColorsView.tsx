@@ -3,19 +3,19 @@ import React, { useEffect, useRef, useState } from 'react'
 import appTheme from '@app/(frontend)/[locale]/css/colors'
 import { ScrollArea } from '@@/shared/ui/scroll-area'
 import { createSentenceFromCamelCase } from '@payload/lexical/features/fontColorFeature/utils/createSentenceFromCamelCase'
-import { translateColor } from '../../../utils/translateColor'
+import { translateColor } from '../../utils/translateColor'
 import { RadioGroup, RadioGroupItem } from '@@/shared/ui/radio-group'
 import { Label } from '@@/shared/ui/label'
 import { Separator } from '@@/shared/ui/seperator'
 import { ColorSpectrum } from '../ColorPicker'
 
 type Props = {
-  onFontColorChange: (color: string) => void
+  onFontColorChange: (color: string, cssVariableColor: string) => void
   onColorSpectrumChange: (colorSpectrum: ColorSpectrum) => void
   colorSpectrum: ColorSpectrum
 }
 
-export const ThemeColors = ({ onFontColorChange, onColorSpectrumChange, colorSpectrum }: Props) => {
+export const ThemeColorsView = ({ onFontColorChange, onColorSpectrumChange, colorSpectrum }: Props) => {
   return (
     <div>
       <RadioGroupList value={colorSpectrum} onValueChange={onColorSpectrumChange} />
