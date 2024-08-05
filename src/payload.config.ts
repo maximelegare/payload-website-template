@@ -15,7 +15,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp' // editor-import
 import { UnderlineFeature } from '@payloadcms/richtext-lexical'
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -35,8 +35,10 @@ import { defaultLocale, locales } from 'ROOT/locales/locales'
 
 import { en } from 'payload/i18n/en'
 import { fr } from 'payload/i18n/fr'
-import { EmbedFeature } from '@payload/lexical/features/embedFeature/feature.server'
+// import { EmbedFeature } from '@payload/lexical/features/embedFeature/feature.server'
 import { FontColorFeature } from '@payload/lexical/features/fontColorFeature/feature.server'
+
+import { env } from './env.mjs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -45,9 +47,9 @@ const generateTitle = () => {
   return 'My Website'
 }
 
-dotenv.config({
-  path: path.resolve(dirname, '../../.env'),
-})
+// dotenv.config({
+//   path: path.resolve(dirname, '../../.env'),
+// })
 
 export default buildConfig({
   admin: {
@@ -179,7 +181,7 @@ export default buildConfig({
     }),
     payloadCloudPlugin(), // storage-adapter-placeholder
   ],
-  secret: process.env.PAYLOAD_SECRET,
+  secret: env.PAYLOAD_SECRET,
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
