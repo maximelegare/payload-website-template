@@ -4,16 +4,22 @@ import React, { useState } from 'react'
 import { ColorPicker } from './ColorPicker'
 
 import { FontColorIcon } from '../icons/FontColorIcon'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@@/shared/ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@@/shared/ui/dropdown-menu'
 import { $patchStyleText } from '@lexical/selection'
 import { $getSelection, $isRangeSelection } from 'lexical'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { translateColor } from '../utils/translateColor'
 
 export const DropdownColorPicker = () => {
-  const [fontColor, setFontColor] = useState('')
+  const [fontColor, setFontColor] = useState<string | undefined>('')
   const [editor] = useLexicalComposerContext()
   const [CSSVariable, setCSSVariable] = useState<string | null>(null)
+  const selectionColor = "#B2FFD6"
+
 
   function getNodeStyles(node: HTMLElement) {
     const computedStyle = getComputedStyle(node)
@@ -31,7 +37,7 @@ export const DropdownColorPicker = () => {
       const nodes = selection.getNodes()
 
       // Check each node for the default color
-      const defaultColor = nodes.reduce((acc: string, node) => {
+      const defaultColor = nodes.reduce<string | undefined>((acc, node) => {
         const domNode = editor.getElementByKey(node.getKey())
         if (domNode) {
           const HEXcolor = translateColor(getNodeStyles(domNode).color, 'HEX')
@@ -53,7 +59,7 @@ export const DropdownColorPicker = () => {
     })
   }
 
-  const applyStyleTextToNodes = (styles: Record<string, string>) => {
+  const applyStyleTextToNodes = (styles: Record<string, string | null>) => {
     editor.update(() => {
       const selection = $getSelection()
       if ($isRangeSelection(selection)) {
@@ -84,7 +90,7 @@ export const DropdownColorPicker = () => {
 
     // Apply false styling if focus is lost from Lexcal
     applyStyleTextToNodes({
-      'background-color': '#7dccf8',
+      'background-color': selectionColor,
       color: '#000000',
       'padding-bottom': '1px',
     })
@@ -110,7 +116,7 @@ export const DropdownColorPicker = () => {
         <ColorPicker
           onApplyStyles={() =>
             applyStyleTextToNodes({
-              color: CSSVariable ?? fontColor,
+              color: CSSVariable ?? fontColor ? (fontColor as string) : null,
               'background-color': null,
               'padding-bottom': null,
             })

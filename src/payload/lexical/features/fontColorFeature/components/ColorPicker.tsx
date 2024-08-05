@@ -1,26 +1,28 @@
 'use client'
 
-import '@app/(frontend)/[locale]/css/theme.scss'
+import '../../../../app/(app)/css/theme.css'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@@/shared/ui/tabs-list'
 import { ThemeColorsView } from './views/ThemeColorsView'
 import { ColorPickerView } from './views/ColorPickerView'
 import { useState } from 'react'
 
 type DropdownColorPickerProps = {
-  fontColor: string
-  onFontColorChange: (color: string, cssVariableColor?:string) => void
+  fontColor?: string
+  onFontColorChange: (color: string, cssVariableColor?: string) => void
   onApplyStyles: () => void
 }
 
-export type ColorSpectrum = 'hex' | 'hsl' | 'rgb'
+export type ColorFormat = 'hex' | 'hsl' | 'rgb'
+
+const defaultColor = '#000000'
 
 export const ColorPicker = ({
-  fontColor,
+  fontColor = defaultColor,
   onFontColorChange,
   onApplyStyles,
 }: DropdownColorPickerProps) => {
-  const [colorSpectrum, setColorSpectrum] = useState<ColorSpectrum>('hex')
-  
+  const [ColorFormat, setColorFormat] = useState<ColorFormat>('hex')
+
   return (
     <div className="flex">
       <Tabs defaultValue="theme" className="h-[350px] w-[310px]">
@@ -30,8 +32,8 @@ export const ColorPicker = ({
         </TabsList>
         <TabsContent value="theme">
           <ThemeColorsView
-            colorSpectrum={colorSpectrum}
-            onColorSpectrumChange={setColorSpectrum}
+            colorFormat={ColorFormat}
+            onColorFormatChange={setColorFormat}
             onFontColorChange={onFontColorChange}
           />
         </TabsContent>

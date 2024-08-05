@@ -1,6 +1,7 @@
 import { ColorTranslator, HSLObject, RGBObject } from 'colortranslator'
 import { checkValidColor } from './checkValidColor'
 
+
 function isHSLObject(obj: any): obj is HSLObject {
   return obj && typeof obj.H === 'number' && typeof obj.S === 'number' && typeof obj.L === 'number'
 }
@@ -14,17 +15,21 @@ export function translateColor(
   color: string | HSLObject | RGBObject,
   translateTo: 'HEX' | 'HSLstring' | 'RGBstring',
   decimals?: number,
-): string | undefined
+): string 
+
+
 export function translateColor(
   color: string | RGBObject | HSLObject,
   translateTo: 'RGB',
   decimals?: number,
-): { R: number; G: number; B: number } | undefined
+): { R: number; G: number; B: number } 
+
+
 export function translateColor(
   color: string | HSLObject | RGBObject,
   translateTo: 'HSL',
   decimals?: number,
-): { H: number; S: number; L: number } | undefined
+): { H: number; S: number; L: number } 
 
 // Implement the function
 export function translateColor(
@@ -40,6 +45,8 @@ export function translateColor(
     __color = `hsl(${color.H}, ${color.S}%, ${color.L}%)`
   } else if (isRGBObject(color)) {
     __color = `rgb(${color.R}, ${color.G}, ${color.B})`
+  } else {
+    __color = color
   }
 
   const isValid = checkValidColor(__color)

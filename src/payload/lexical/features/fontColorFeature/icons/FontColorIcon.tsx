@@ -37,7 +37,7 @@ export function FontColorIcon(props?: Props) {
           />
         </g>
       </svg>
-      {props.underscoreColor ? (
+      {props?.underscoreColor ? (
         <div
           style={{
             marginTop: '3px',

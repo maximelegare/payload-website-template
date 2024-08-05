@@ -5,7 +5,7 @@ import { HexColorPicker } from 'react-colorful'
 import { translateColor } from '../../utils/translateColor'
 import { Button } from '@payloadcms/ui'
 import { HslColor, RgbColor } from 'react-colorful'
-import { transformKeys } from '@payload/utilities/transformKeys'
+import { transformKeys } from '../../utils/transformKeys'
 
 interface Props {
   onFontColorChange: (color: string) => void
@@ -16,6 +16,7 @@ interface Props {
 export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }: Props) => {
   const [color, setColor] = React.useState<string | undefined>(undefined)
   const defaultColor = '#000000'
+  type InputsColorFormat = 'hex' | 'rgb' | 'hsl'
 
   type InputsColors = {
     hex: { value: string }
@@ -34,7 +35,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
     onFontColorChange(color)
   }
 
-  const updateInputs = (value: string, name: string) => {
+  const updateInputs = (value: string, name: InputsColorFormat) => {
     const values = getColorsValues(value, name)
     setInputs(values)
     setColor(values.hex.value)
@@ -61,7 +62,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value
-    const name = e.target.name.split('.')[0]
+    const name = e.target.name.split('.')[0] as InputsColorFormat
     const subName = e.target.name.split('.')[1]
 
     const getValues = getColorsValues(value, name)
@@ -71,11 +72,14 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
     // Sets only the value of the input that changed
     setInputs((prev) => ({
       ...prev,
-      [name]: { ...prev[name], [subName]: name === 'hex' ? value : parseInt(value) },
+      [name]: {
+        ...prev[name as InputsColorFormat],
+        [subName]: name === 'hex' ? value : parseInt(value),
+      },
     }))
   }
 
-  const getColorsValues = (value: string, name: string): InputsColors => {
+  const getColorsValues = (value: string, name: InputsColorFormat): InputsColors => {
     // const subName = e.target.name.split('.')[1]
     let HEX: string
     let HSL: HslColor
@@ -99,12 +103,16 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
         'toLowerCase',
       )
       RGB = inputs.rgb
+    } else {
+      HEX = defaultColor
+      HSL = { h: 0, s: 0, l: 0 }
+      RGB = { b: 0, g: 0, r: 0 }
     }
     return { hex: { value: HEX }, hsl: HSL, rgb: RGB }
   }
 
   const handleInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateInputs(e.target.value, e.target.name.split('.')[0])
+    updateInputs(e.target.value, e.target.name.split('.')[0] as InputsColorFormat)
   }
 
   useEffect(() => {

@@ -2,30 +2,34 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import appTheme from '@app/(frontend)/[locale]/css/colors'
 import { ScrollArea } from '@@/shared/ui/scroll-area'
-import { createSentenceFromCamelCase } from '@payload/lexical/features/fontColorFeature/utils/createSentenceFromCamelCase'
+import { createSentenceFromCamelCase } from '../../utils/createSentenceFromCamelCase'
 import { translateColor } from '../../utils/translateColor'
 import { RadioGroup, RadioGroupItem } from '@@/shared/ui/radio-group'
 import { Label } from '@@/shared/ui/label'
 import { Separator } from '@@/shared/ui/seperator'
-import { ColorSpectrum } from '../ColorPicker'
+import { ColorFormat } from '../ColorPicker'
 
 type Props = {
   onFontColorChange: (color: string, cssVariableColor: string) => void
-  onColorSpectrumChange: (colorSpectrum: ColorSpectrum) => void
-  colorSpectrum: ColorSpectrum
+  onColorFormatChange: (colorFormat: ColorFormat) => void
+  colorFormat: ColorFormat
 }
 
-export const ThemeColorsView = ({ onFontColorChange, onColorSpectrumChange, colorSpectrum }: Props) => {
+export const ThemeColorsView = ({
+  onFontColorChange,
+  onColorFormatChange,
+  colorFormat,
+}: Props) => {
   return (
     <div>
-      <RadioGroupList value={colorSpectrum} onValueChange={onColorSpectrumChange} />
+      <RadioGroupList value={colorFormat} onValueChange={onColorFormatChange} />
       <Separator className="my-2" />
       <ScrollArea className="h-[265px] overflow-auto">
         <div className="flex flex-col gap-2">
           {Object.entries(appTheme).map(([key, variable]) => {
             return (
               <ThemeColorButton
-                colorSpectrum={colorSpectrum}
+                colorFormat={colorFormat}
                 variableName={key}
                 key={key}
                 onFontColorChange={onFontColorChange}
@@ -43,20 +47,20 @@ type BtnProps = {
   variableName: string
   variable: string
   onFontColorChange: (color: string, cssVariableColor: string) => void
-  colorSpectrum: ColorSpectrum
+  colorFormat: ColorFormat
 }
 
 const ThemeColorButton = ({
   variableName,
   variable,
   onFontColorChange,
-  colorSpectrum,
+  colorFormat,
 }: BtnProps) => {
   const colorRef = useRef(null)
-  const [backgroundColor, setBackgroundColor] = React.useState(null)
+  const [backgroundColor, setBackgroundColor] = React.useState<string | undefined>(undefined)
 
   const getTranslateSpectrum = (
-    colorSpectrum: ColorSpectrum,
+    colorSpectrum: ColorFormat,
   ): 'HEX' | 'RGBstring' | 'HSLstring' => {
     switch (colorSpectrum) {
       case 'hex':
@@ -74,17 +78,18 @@ const ThemeColorButton = ({
     if (colorRef.current) {
       const computedStyle = getComputedStyle(colorRef.current)
       setBackgroundColor(
-        translateColor(computedStyle.backgroundColor, getTranslateSpectrum(colorSpectrum), 0),
+        translateColor(computedStyle.backgroundColor, getTranslateSpectrum(colorFormat), 0),
       )
     }
-  }, [colorSpectrum])
+  }, [colorFormat])
 
   return (
     <button
       key={variableName}
-      onClick={() =>
+      onClick={() => {
+        if (!backgroundColor) return
         onFontColorChange(translateColor(backgroundColor, 'HEX'), `hsl(var(${variable}))`)
-      }
+      }}
       className="border-none outiline-none flex gap-2 items-center cursor-pointer p-1 rounded-md bg-[var(--theme-elevation-0)] hover:bg-[var(--theme-elevation-50)]"
     >
       <div className="flex items-center w-full gap-2">
@@ -103,8 +108,8 @@ const ThemeColorButton = ({
 }
 
 type RadioGroupListProps = {
-  value: ColorSpectrum
-  onValueChange: (value: ColorSpectrum) => void
+  value: ColorFormat
+  onValueChange: (value: ColorFormat) => void
 }
 const RadioGroupList = ({ onValueChange, value }: RadioGroupListProps) => {
   return (
