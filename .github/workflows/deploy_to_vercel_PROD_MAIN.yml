@@ -1,4 +1,4 @@
-name: Deploy to vercel in PROD BETA
+name: Deploy to vercel in PROD MAIN
 env:
   VERCEL_ORG_ID: ${{secrets.VERCEL_ORGID}}
   VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECTID}}
@@ -10,10 +10,10 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    if: ${{github.ref == 'refs/heads/PARTAGO_BETA'}}
+    if: ${{github.ref == 'refs/heads/MAIN'}}
     steps:
       - uses: actions/checkout@v3
-      - name: Run semantic release
+      - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel environment informations
         run: vercel pull --yes --environment=production --token=${{secrets.VERCEL_TOKEN}}
