@@ -25,24 +25,23 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     src: srcFromProps,
   } = props
 
-  const [isLoading, setIsLoading] = React.useState(true)
+  // const [isLoading, setIsLoading] = React.useState(true)
 
-  let width: number | undefined
-  let height: number | undefined
+  let width: number | undefined 
+  let height: number | undefined 
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
 
   if (!src && resource && typeof resource !== 'string') {
     const {
       alt: altFromResource,
-      filename: fullFilename,
       height: fullHeight,
       url,
       width: fullWidth,
     } = resource
 
-    width = fullWidth
-    height = fullHeight
+    width = fullWidth ?? undefined
+    height = fullHeight ?? undefined
     alt = altFromResource
 
     src = `${process.env.NEXT_PUBLIC_SERVER_URL}${url}`
@@ -63,7 +62,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
       height={!fill ? height : undefined}
       onClick={onClick}
       onLoad={() => {
-        setIsLoading(false)
+        // setIsLoading(false)
         if (typeof onLoadFromProps === 'function') {
           onLoadFromProps()
         }

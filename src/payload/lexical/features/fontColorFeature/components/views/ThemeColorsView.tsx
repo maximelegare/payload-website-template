@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import appTheme from '@app/(frontend)/[locale]/css/colors'
 import { ScrollArea } from '@@/shared/ui/scroll-area'

@@ -12,13 +12,15 @@ const defaultCollectionLabels = {
   },
 }
 
+type CollectionLabels = {
+  plural?: string
+  singular?: string
+}
+
 export const PageRange: React.FC<{
   className?: string
   collection?: string
-  collectionLabels?: {
-    plural?: string
-    singular?: string
-  }
+  collectionLabels?: CollectionLabels
   currentPage?: number
   limit?: number
   totalDocs?: number

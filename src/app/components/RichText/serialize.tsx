@@ -74,7 +74,7 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
             text = <sup key={index}>{text}</sup>
           }
 
-          return <span style={{ ...parseCSSStylesString(node.style) }}>{text}</span>
+          return <span key={index} style={{ ...parseCSSStylesString(node.style) }}>{text}</span>
         }
 
         // NOTE: Hacky fix for

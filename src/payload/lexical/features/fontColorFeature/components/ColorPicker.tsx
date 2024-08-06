@@ -1,6 +1,6 @@
 'use client'
 
-import '@app/(frontend)/[locale]/css/theme.scss'
+import '@app/(frontend)/[locale]/css/theme.css'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@@/shared/ui/tabs-list'
 import { ThemeColorsView } from './views/ThemeColorsView'
 import { ColorPickerView } from './views/ColorPickerView'

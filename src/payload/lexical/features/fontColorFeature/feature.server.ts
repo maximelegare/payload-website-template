@@ -1,6 +1,5 @@
 import { createServerFeature } from '@payloadcms/richtext-lexical'
 import { FontColorFeatureClient } from './feature.client'
-import { Field, TextField } from 'payload'
 
 // const urlField: TextField = {
 //   name: 'fontColor',

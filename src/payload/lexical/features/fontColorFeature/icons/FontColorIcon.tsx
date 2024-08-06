@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import type { SVGProps } from 'react'
 
 type Props = SVGProps<SVGSVGElement> & { underscoreColor?: string }

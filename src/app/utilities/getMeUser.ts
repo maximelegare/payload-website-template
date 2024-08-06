@@ -12,7 +12,7 @@ export const getMeUser = async (args?: {
 }> => {
   const { nullUserRedirect, validUserRedirect } = args || {}
   const cookieStore = cookies()
-  const token = cookieStore.get('payload-token')?.value
+  const token = cookieStore.get('payload-token')?.value as string
 
   const meUserReq = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users/me`, {
     headers: {

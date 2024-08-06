@@ -1,12 +1,16 @@
-import { kebabToCamelCase } from "./kebabToCamelCase";
+import { kebabToCamelCase } from './kebabToCamelCase'
 
-export const parseCSSStylesString = (styleString:string) => {
-    return styleString.split(';').reduce((styleObject, styleProperty) => {
-      let [property, value] = styleProperty.split(':').map(item => item.trim());
-      if (property && value) {
-        property = kebabToCamelCase(property);
-        styleObject[property] = value;
-      }
-      return styleObject;
-    }, {});
-  }
+interface StyleObject {
+  [key: string]: string
+}
+
+export const parseCSSStylesString = (styleString: string) => {
+  return styleString.split(';').reduce((styleObject, styleProperty) => {
+    const [property, value] = styleProperty.split(':').map((item) => item.trim())
+    if (property && value) {
+      const camelproperty = kebabToCamelCase(property)
+      styleObject[camelproperty] = value
+    }
+    return styleObject
+  }, {} as StyleObject)
+}

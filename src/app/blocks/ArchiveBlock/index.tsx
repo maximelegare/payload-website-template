@@ -21,7 +21,7 @@ export const ArchiveBlock: React.FC<
   if (populateBy === 'collection') {
     const payload = await getPayloadHMR({ config: configPromise })
 
-    const flattenedCategories = categories.map((category) => {
+    const flattenedCategories = categories?.map((category) => {
       if (typeof category === 'string') return category
       else return category.id
     })
@@ -29,7 +29,7 @@ export const ArchiveBlock: React.FC<
     const fetchedPosts = await payload.find({
       collection: 'posts',
       depth: 1,
-      limit,
+      limit: limit ?? undefined,
       ...(flattenedCategories && flattenedCategories.length > 0
         ? {
             where: {
@@ -43,9 +43,10 @@ export const ArchiveBlock: React.FC<
 
     posts = fetchedPosts.docs
   } else {
-    posts = selectedDocs.map((post) => {
-      if (typeof post.value !== 'string') return post.value
-    })
+    posts =
+      (selectedDocs?.map((post) => {
+        if (typeof post.value !== 'string' || typeof post.value === 'undefined') return post.value
+      }) as Post[]) ?? []
   }
 
   return (

@@ -5,10 +5,10 @@ import React, { Fragment, useCallback, useState } from 'react'
 export const SeedButton: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [seeded, setSeeded] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<any>(null)
 
   const handleClick = useCallback(
-    async (e) => {
+    async (e:any) => {
       e.preventDefault()
       if (loading || seeded) return
 

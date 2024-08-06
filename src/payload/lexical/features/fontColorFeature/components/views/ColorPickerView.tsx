@@ -52,7 +52,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
     const HSL = translateColor(color, 'HSL')
     const RGB = translateColor(color, 'RGB')
 
-    setInputs((prev) => ({
+    setInputs(() => ({
       hex: { value: color },
       hsl: { h: HSL.H, s: HSL.S, l: HSL.L },
       rgb: { r: RGB.R, g: RGB.G, b: RGB.B },
@@ -61,7 +61,7 @@ export const ColorPickerView = ({ fontColor, onFontColorChange, onApplyStyles }:
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value
+    const value = e.target.value
     const name = e.target.name.split('.')[0] as InputsColorFormat
     const subName = e.target.name.split('.')[1]
 

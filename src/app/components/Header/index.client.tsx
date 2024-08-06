@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react'
 
 import type { Header } from '../../../payload-types'
 
+import { Theme } from '@payloadcms/ui'
+
 import { Logo } from '../Logo/Logo'
 import { HeaderNav } from './Nav'
 
@@ -15,7 +17,7 @@ interface HeaderClientProps {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
   /* Storing the value in a useState to avoid hydration errors */
-  const [theme, setTheme] = useState(null)
+  const [theme, setTheme] = useState<Theme | undefined | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
 

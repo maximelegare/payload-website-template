@@ -11,10 +11,8 @@ import {
   HeadingFeature,
   LinkFeature,
   lexicalEditor,
-  TreeViewFeature
 } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp' // editor-import
-import { UnderlineFeature } from '@payloadcms/richtext-lexical'
 // import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload'

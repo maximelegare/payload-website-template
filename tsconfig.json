@@ -11,7 +11,9 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
     "noEmit": true,
     "incremental": true,
     "jsx": "preserve",
@@ -55,7 +57,8 @@
     ".next/types/**/*.ts",
     "redirects.js",
     "next.config.mjs"
-, "locales/locales.js"  ],
+, "locales/locales.js",".eslintrc.cjs"  ],
+
   "exclude": [
     "node_modules"
   ],

@@ -8,7 +8,7 @@ import { Width } from '../Width'
 export const Message: React.FC<MessageField> = ({ message }) => {
   return (
     <Width className="my-12" width="100">
-      <RichText content={message} />
+      <RichText content={message ?? undefined} />
     </Width>
   )
 }

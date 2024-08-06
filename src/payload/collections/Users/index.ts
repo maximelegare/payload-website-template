@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '../../access/authenticated'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import adminsAndUser from '@payload/access/adminsAndUser'
 import { anyone } from '@payload/access/anyone'

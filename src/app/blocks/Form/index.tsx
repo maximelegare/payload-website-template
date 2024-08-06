@@ -8,7 +8,7 @@ import RichText from 'src/app/components/RichText'
 import { Button } from '@@/shared/ui/button'
 
 import { buildInitialFormState } from './buildInitialFormState'
-import { fields } from './fields'
+import { FieldsKeys, fields } from './fields'
 
 export type Value = unknown
 
@@ -48,10 +48,8 @@ export const FormBlock: React.FC<
   const {
     control,
     formState: { errors },
-    getValues,
     handleSubmit,
     register,
-    setValue,
   } = formMethods
 
   const [isLoading, setIsLoading] = useState(false)
@@ -142,7 +140,7 @@ export const FormBlock: React.FC<
             {formFromProps &&
               formFromProps.fields &&
               formFromProps.fields?.map((field, index) => {
-                const Field: React.FC<any> = fields?.[field.blockType]
+                const Field: React.FC<any> = fields?.[field.blockType as FieldsKeys]
                 if (Field) {
                   return (
                     <div className="mb-6 last:mb-0" key={index}>

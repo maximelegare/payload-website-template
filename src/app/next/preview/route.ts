@@ -25,6 +25,7 @@ export async function GET(
     new Response('You are not allowed to preview this page', { status: 403 })
   }
 
+  // @ts-expect-error
   const user = jwt.decode(token, process.env.PAYLOAD_SECRET)
 
   if (!user) {

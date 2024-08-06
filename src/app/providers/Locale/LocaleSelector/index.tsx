@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@@/shared/ui/select'
-import React, { useState } from 'react'
+import React from 'react'
 
 
 import { useRouter } from 'next/navigation'

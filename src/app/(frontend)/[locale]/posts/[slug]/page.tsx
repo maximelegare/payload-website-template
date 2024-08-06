@@ -5,7 +5,6 @@ import { PayloadRedirects } from '@app/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import { draftMode, headers } from 'next/headers'
-import { notFound } from 'next/navigation'
 import React from 'react'
 import RichText from 'src/app/components/RichText'
 
@@ -53,14 +52,22 @@ export default async function Post({ params: { slug = '' } }) {
 
         <RelatedPosts
           className="mt-12"
-          docs={post.relatedPosts.filter((post) => typeof post !== 'string')}
+          docs={
+            post.relatedPosts
+              ? (post.relatedPosts.filter((post) => typeof post !== 'string') as Post[])
+              : undefined
+          }
         />
       </div>
     </article>
   )
 }
 
-export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
   const post = await queryPostBySlug({ slug })
 
   return generateMeta({ doc: post })

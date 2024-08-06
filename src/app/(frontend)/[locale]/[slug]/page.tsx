@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+
 import { PayloadRedirects } from '@app/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
@@ -14,7 +15,7 @@ import { Hero } from '../../../components/Hero'
 import { generateMeta } from '../../../utilities/generateMeta'
 import { Locale } from 'ROOT/locales/locales'
 
-export async function generateStaticParams( ) {
+export async function generateStaticParams() {
   const payload = await getPayloadHMR({ config: configPromise })
   const pages = await payload.find({
     collection: 'pages',
@@ -37,7 +38,7 @@ export default async function Page({ params: { slug = 'home', locale = 'en' } })
 
   page = await queryPageBySlug({
     slug,
-    locale: locale as Locale
+    locale: locale as Locale,
   })
 
   // Remove this code once your website is seeded
@@ -62,16 +63,23 @@ export default async function Page({ params: { slug = 'home', locale = 'en' } })
   )
 }
 
-export async function generateMetadata({ params: { slug = 'home', locale } }): Promise<Metadata> {
+export async function generateMetadata({
+  params: { slug = 'home', locale },
+}: {
+  params: {
+    slug: string
+    locale: Locale
+  }
+}): Promise<Metadata> {
   const page = await queryPageBySlug({
     slug,
-    locale
+    locale,
   })
 
   return generateMeta({ doc: page })
 }
 
-const queryPageBySlug = async ({ slug, locale }: { slug: string, locale:Locale }) => {
+const queryPageBySlug = async ({ slug, locale }: { slug: string; locale: Locale }) => {
   const { isEnabled: draft } = draftMode()
 
   const payload = await getPayloadHMR({ config: configPromise })
