@@ -53,6 +53,29 @@ Use the `git` CLI to clone this template directly to your machine:
 
 That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
 
+## Put it live on Vercel
+
+To make the project live on Vercel, you first need to do add these to your Github repository's secrets:
+
+  - `VERCEL_ORGID` : Run `npm i vercel && vercel` 
+  - `VERCEL_PROJECTID` : Run `npm i vercel && vercel`  
+  - `VERCEL_TOKEN` : Generate it [here](https://vercel.com/account/settings/tokens)
+  
+It will make a live instance of your project, but it will crash since it won't have the environement variables. You then can add these in the Vercel project:
+
+ 
+   - `DATABASE_URI`
+   - `PAYLOAD_SECRET`
+   - `PAYLOAD_PUBLIC_SERVER_URL`
+   - `NEXT_PUBLIC_SERVER_URL`
+   - `NEXT_PUBLIC_IS_LIVE`
+   - `PAYLOAD_PUBLIC_DRAFT_SECRET`
+   - `NEXT_PRIVATE_DRAFT_SECRET`
+   - `REVALIDATION_KEY`
+   - `NEXT_PRIVATE_REVALIDATION_KEY`
+
+Then, you can run the GH action. Right now, the urls are not correct. But now that the project is live, you have the url. You can now update again the env variables for the urls and re-run the github actions.
+
 ## How it works
 
 The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
