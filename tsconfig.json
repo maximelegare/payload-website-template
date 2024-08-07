@@ -57,7 +57,7 @@
     ".next/types/**/*.ts",
     "redirects.js",
     "next.config.mjs"
-, "locales/locales.js",".eslintrc.cjs"  ],
+, "locales/locales.js",".eslintrc.cjs", "commitlint.config.mjs"  ],
 
   "exclude": [
     "node_modules"

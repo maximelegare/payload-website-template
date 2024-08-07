@@ -74,6 +74,8 @@
     "uninstall": "^0.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@next/eslint-plugin-next": "^13.1.6",
     "@payloadcms/eslint-config": "^1.1.1",
     "@tailwindcss/typography": "^0.5.13",

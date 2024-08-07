@@ -6,5 +6,4 @@ npm run lint-staged --concurent false ||
 )
 
 
-# If everything passes... Now we can commit
-echo '✅✅ You win this time... I am committing this now. ✅✅'
+echo '✅ Eslint & Prettier Passed.'
