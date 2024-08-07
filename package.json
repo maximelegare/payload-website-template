@@ -10,12 +10,14 @@
     "dev:prod": "rm -rf .next && pnpm build && pnpm serve",
     "generate:types": "payload generate:types",
     "ii": "pnpm --ignore-workspace install",
+    "lint-staged": "lint-staged",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "payload": "payload",
     "reinstall": "rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "next start",
-    "qr": "node qr.code.mjs"
+    "qr": "node qr.code.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@lexical/list": "0.16.1",
@@ -51,6 +53,7 @@
     "escape-html": "^1.0.3",
     "geist": "^1.3.0",
     "graphql": "^16.8.1",
+    "husky": "^9.1.4",
     "jsonwebtoken": "9.0.1",
     "lexical": "0.16.1",
     "lucide-react": "^0.378.0",
@@ -86,6 +89,7 @@
     "copyfiles": "^2.4.1",
     "eslint": "^8",
     "eslint-config-next": "15.0.0-canary.58",
+    "lint-staged": "^15.2.8",
     "postcss": "^8.4.38",
     "prettier": "^3.0.3",
     "qrcode-terminal": "^0.12.0",
@@ -99,5 +103,15 @@
   },
   "overrides": {
     "@types/react": "18.2.74"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,jsx,js}": [
+      "prettier --write",
+      "eslint --fix",
+      " eslint"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
   }
 }

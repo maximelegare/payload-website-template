@@ -1,0 +1,10 @@
+npm run lint-staged --concurent false ||
+(
+        echo '❌❗❌ Failed to commit! ❌❗❌
+         ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+        false; 
+)
+
+
+# If everything passes... Now we can commit
+echo '✅✅ You win this time... I am committing this now. ✅✅'
