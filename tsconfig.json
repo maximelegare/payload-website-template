@@ -56,11 +56,16 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "redirects.js",
-    "next.config.mjs"
-, "locales/locales.js",".eslintrc.cjs", "commitlint.config.mjs"  ],
+    "next.config.mjs",
+    "locales/locales.js",
+    ".eslintrc.cjs",
+    "commitlint.config.mjs", 
+    "release.config.cjs"
+    ],
 
   "exclude": [
-    "node_modules"
+    "node_modules",
+    
   ],
   "ts-node": {
     "transpileOnly": true,
