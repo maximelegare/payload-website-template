@@ -21,7 +21,10 @@ export const InputField: React.FC<Props> = (props) => {
   return (
     <div>
       <FieldLabel htmlFor={path} label={label as string | Record<string, string>} />
-      <Switch onChange={setValue} checked={value} />
+      <div className="flex items-center gap-2">
+        <Switch id={path} onCheckedChange={setValue} checked={value} />
+        <span className="text-[var(--theme-elevation-500)]">{value ? 'On' : 'Off'}</span>
+      </div>
     </div>
   )
 }

@@ -639,7 +639,7 @@ export interface Footer {
  */
 export interface Setting {
   id: string;
-  test?: boolean | null;
+  websiteInConstruction?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }

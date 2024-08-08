@@ -10,7 +10,8 @@ export const Settings: GlobalConfig = {
   },
   fields: [
     switchField({
-      label: 'App In construction',
+      label: 'Website in Construction',
+      name: 'websiteInConstruction',
     }),
   ],
 }
