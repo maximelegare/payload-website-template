@@ -28,7 +28,7 @@ import BeforeLogin from './payload/components/BeforeLogin'
 import { seed } from './payload/endpoints/seed'
 import { Footer } from './payload/globals/Footer/Footer'
 import { Header } from './payload/globals/Header/Header'
-import { Settings } from './payload/globals/Settings/Settings'
+import { SettingsPage } from './payload/globals/Settings/SettingsPage'
 import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
 import { defaultLocale, locales } from 'ROOT/locales/locales'
 
@@ -119,7 +119,7 @@ export default buildConfig({
       path: '/seed',
     },
   ],
-  globals: [Header, Footer, Settings],
+  globals: [Header, Footer, SettingsPage],
   plugins: [
     redirectsPlugin({
       collections: ['pages', 'posts'],

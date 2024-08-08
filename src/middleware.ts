@@ -7,7 +7,10 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/admin', req.url))
   }
 
-  return i18nRouter(req, i18nConfig)
+  const i18Response = i18nRouter(req, i18nConfig)
+  i18Response.headers.set('x-pathname', req.nextUrl.pathname)
+
+  return i18Response
 }
 
 // only applies this middleware to files in the app directory

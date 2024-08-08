@@ -2,8 +2,8 @@ import type { GlobalConfig } from 'payload'
 
 import switchField from '@payload/fields/switch/config'
 
-export const Settings: GlobalConfig = {
-  slug: 'settings',
+export const SettingsPage: GlobalConfig = {
+  slug: 'settings-page',
   access: {
     read: () => true,
     update: () => true,

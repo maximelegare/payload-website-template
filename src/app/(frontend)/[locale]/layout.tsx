@@ -14,8 +14,23 @@ import { InitTheme } from '../../providers/Theme/InitTheme'
 import { mergeOpenGraph } from '../../utilities/mergeOpenGraph'
 import './css/globals.css'
 import { ScrollArea } from '@@/shared/ui/scroll-area'
+import { getGlobal } from '@app/utilities/getGlobals'
+import { SettingsPage } from '@payload-types'
+import { getMeUser } from '@app/utilities/getMeUser'
+import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings: SettingsPage = await getGlobal('settings-page')
+  const meUser = await getMeUser()
+
+  const headersList = headers()
+  const pathname = headersList.get('x-pathname') || ''
+
+  if (settings.websiteInConstruction && (!meUser.user || !meUser.user.roles.includes('admin'))) {
+    if (!pathname.includes('in-construction')) redirect('/in-construction')
+  }
+
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
       <head>
