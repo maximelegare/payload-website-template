@@ -25,7 +25,7 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
-    'settings-page': SettingsPage;
+    'website-config': WebsiteConfig;
   };
   locale: 'fr' | 'en';
   user: User & {
@@ -635,11 +635,11 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "settings-page".
+ * via the `definition` "website-config".
  */
-export interface SettingsPage {
+export interface WebsiteConfig {
   id: string;
-  websiteInConstruction?: boolean | null;
+  underConstruction?: boolean | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
