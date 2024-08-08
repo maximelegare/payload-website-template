@@ -28,6 +28,7 @@ import BeforeLogin from './payload/components/BeforeLogin'
 import { seed } from './payload/endpoints/seed'
 import { Footer } from './payload/globals/Footer/Footer'
 import { Header } from './payload/globals/Header/Header'
+import { Settings } from './payload/globals/Settings/Settings'
 import { revalidateRedirects } from './payload/hooks/revalidateRedirects'
 import { defaultLocale, locales } from 'ROOT/locales/locales'
 
@@ -71,7 +72,7 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
-    features: ({defaultFeatures}) => {
+    features: ({ defaultFeatures }) => {
       return [
         ...defaultFeatures,
         // TreeViewFeature(),
@@ -118,7 +119,7 @@ export default buildConfig({
       path: '/seed',
     },
   ],
-  globals: [Header, Footer],
+  globals: [Header, Footer, Settings],
   plugins: [
     redirectsPlugin({
       collections: ['pages', 'posts'],
